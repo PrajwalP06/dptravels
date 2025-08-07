@@ -151,10 +151,11 @@
                         <h2 class="section-title">Contact Us</h2>
                         <div class="Form-sty">
                             <div class="form-Div">
-                                <form method="post">
-                                    <input type="text" class="form-control" placeholder="Name " required><br>
-                                    <input type="number" class="form-control" placeholder="Contact No" required><br>
-                                    <textarea type="text" class="form-control" placeholder="Your Message" required></textarea><br>
+                                <form id="queryForm" action="/send-query" method="POST">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="full name " required><br>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="email " required><br>
+                                    <input type="number" class="form-control" id="phone" name="phone" placeholder="Contact No" required><br>
+                                    <textarea type="text" class="form-control" id="message" name="message" placeholder="Your Message" required></textarea><br>
                                     <div class="Div-button">
                                         <button type="submit" class="btn btn-success">Submit</button>
                                     </div>
@@ -198,7 +199,7 @@
                             <li><a href="#">FAQs</a></li>
                             <li><a href="#">Terms & Conditions</a></li>
                             <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Customer Support</a></li>
+                            <li><a href="#"> Support</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
@@ -242,25 +243,25 @@
                         </p>
                         <div class="container-modal">
                             <div class="form-Div">
-                                <form method="post">
-                                    <input type="text" class="form-control" placeholder="Name " required><br>
-                                    <input type="email" class="form-control" placeholder="E-mail " required><br>
-                                    <input type="number" class="form-control" placeholder="Contact No" required><br>
-                                    <input type="number" class="form-control" placeholder="number of travellers" required><br>
-                                    <label class="form-label">
-                                        <input type="radio" id="tsomoW" name="tsomo" ><span style="margin-left: 10px;"> Luxury Rs. 7k(Wagon-R) </span><br>
-                                        <input type="radio" id="tsomgoI" name="tsomo" ><span style="margin-left: 10px;"> Delux Rs. 10k(Innova) </span>
-                                    </label>
+                                <form id="tosmoForm" action="/send-tsomo" method="POST">
+                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh" name="veh">
+                                        <option value="Luxury 12k">Luxury 12K</option>
+                                        <option value="Delux 16k">Delux 16K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
                                 </form>
                             </div>
-                        </div>  
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Book</button>
-                    </div>
+                        </div>
+                    </div> 
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -296,25 +297,25 @@
                         </p>
                         <div class="container-modal">
                             <div class="form-Div">
-                                <form method="post">
-                                    <input type="text" class="form-control" placeholder="Name " required><br>
-                                    <input type="email" class="form-control" placeholder="E-mail " required><br>
-                                    <input type="number" class="form-control" placeholder="Contact No" required><br>
-                                    <input type="number" class="form-control" placeholder="number of travellers" required><br>
-                                    <label class="form-label">
-                                        <input type="radio" id="GurudongmarW" name="Gurudongmar" ><span style="margin-left: 10px;"> Luxury Rs. 22k(Bolero) </span><br>
-                                        <input type="radio" id="GurudongmarI" name="Gurudongmar" ><span style="margin-left: 10px;"> Delux Rs. 36k(Crysta) </span>
-                                    </label>
+                                <form id="guruForm" action="/send-guru" method="POST">
+                                    <input type="text" class="form-control" id="name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh" name="veh">
+                                        <option value="Luxury 20k">Luxury 20K</option>
+                                        <option value="Delux 28k">Delux 28K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Book</button>
-                    </div>
+                    </div> 
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -336,25 +337,25 @@
                         </p>
                         <div class="container-modal">
                             <div class="form-Div">
-                                <form method="post">
-                                    <input type="text" class="form-control" placeholder="Name " required><br>
-                                    <input type="email" class="form-control" placeholder="E-mail " required><br>
-                                    <input type="number" class="form-control" placeholder="Contact No" required><br>
-                                    <input type="number" class="form-control" placeholder="number of travellers" required><br>
-                                    <label class="form-label">
-                                        <input type="radio" id="NamchiW" name="Namchi" ><span style="margin-left: 10px;"> Luxury Rs. 7k(Wagon-R) </span><br>
-                                        <input type="radio" id="NamchiI" name="Namchi" ><span style="margin-left: 10px;"> Delux Rs. 10k(Innova) </span>
-                                    </label>
+                               <form id="namchiForm" action="/send-namchi" method="POST">
+                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh" name="veh">
+                                        <option value="Luxury 5k">Luxury 5K</option>
+                                        <option value="Delux 8k">Delux 8K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Book</button>
-                    </div>
+                    </div> 
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -378,25 +379,25 @@
                         </p>
                         <div class="container-modal">
                             <div class="form-Div">
-                                <form method="post">
-                                    <input type="text" class="form-control" placeholder="Name " required><br>
-                                    <input type="email" class="form-control" placeholder="E-mail " required><br>
-                                    <input type="number" class="form-control" placeholder="Contact No" required><br>
-                                    <input type="number" class="form-control" placeholder="number of travellers" required><br>
-                                    <label class="form-label">
-                                        <input type="radio" id="ZulukW" name="Zuluk"><span style="margin-left: 10px;"> Luxury Rs. 7k(Wagon-R) </span><br>
-                                        <input type="radio" id="ZulukI" name="Zuluk"><span style="margin-left: 10px;"> Delux Rs. 10k(Innova) </span>
-                                    </label>
+                                <form id="zulukForm" action="/send-zuluk" method="POST">
+                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh" name="veh">
+                                        <option value="Luxury 6k">Luxury 6K</option>
+                                        <option value="Delux 8k">Delux 8K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Book</button>
-                    </div>
+                    </div> 
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="modal fade" id="staticBackdrop5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -424,26 +425,26 @@
                         </p>
                         <div class="container-modal">
                             <div class="form-Div">
-                                <form method="post">
-                                    <input type="text" class="form-control" placeholder="Name " required><br>
-                                    <input type="email" class="form-control" placeholder="E-mail " required><br>
-                                    <input type="number" class="form-control" placeholder="Contact No" required><br>
-                                    <input type="number" class="form-control" placeholder="number of travellers" required><br>
-                                    <label class="form-label">
-                                        <input type="radio" id="PellingW" name="Pelling"><span style="margin-left: 10px;"> Luxury Rs. 7k(Wagon-R) </span><br>
-                                        <input type="radio" id="Pelling" name="Pelling"><span style="margin-left: 10px;"> Delux Rs. 10k(Innova) </span>
-                                    </label>
+                                <form id="pellingForm" action="/send-pelling" method="POST">
+                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh" name="veh">
+                                        <option value="Luxury 6k">Luxury 6K</option>
+                                        <option value="Delux 9k">Delux 9K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
-                    </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Book</button>
-                        </div>
+                    </div> 
                 </div>
-            </div>
-        </div>
+            </div> 
+        </div>              
         <div class="modal fade" id="staticBackdrop6" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -466,23 +467,24 @@
                         </p>
                         <div class="container-modal">
                             <div class="form-Div">
-                                <form method="post">
-                                    <input type="text" class="form-control" placeholder="Name " required><br>
-                                    <input type="email" class="form-control" placeholder="E-mail " required><br>
-                                    <input type="number" class="form-control" placeholder="Contact No" required><br>
-                                    <input type="number" class="form-control" placeholder="number of travellers" required><br>
-                                    <label class="form-label">
-                                        <input type="radio" id="SightseeingW" name="Sightseeing" ><span style="margin-left: 10px;"> Luxury Rs. 3.5k(Wagon-R) </span><br>
-                                        <input type="radio" id="SightseeingI" name="Sightseeing" ><span style="margin-left: 10px;"> Delux Rs. 6k(Innova) </span>
-                                    </label>
+                               <form id="gtkForm" action="/send-gtk" method="POST">
+                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh" name="veh">
+                                        <option value="Luxury 8k">Luxury 8K</option>
+                                        <option value="Delux 10k">Delux 10K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Book</button>
-                        </div>
+                        
                 </div>
             </div>
         </div>
