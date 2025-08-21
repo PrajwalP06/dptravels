@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Destination Paradise - Travels</title>
+        <link rel="stylesheet" href="Style.css">
+         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23C5A47E'>dp</text></svg>">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <!-- Navbar -->
+        <nav>
+            <div class="container navbar">
+                <div class="logo"><img src="Images/DP Travels.jpg" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;">DP Travels</div>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#packages">Packages</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Discover Your Dream Vacation</h1>
+                <p>Explore the world's most beautiful destinations with our expertly crafted tour packages tailored to your preferences.</p>
+                <a href="#packages" class="btn">Explore Tours</a>
+            </div>
+        </section>
+        
+        <!-- Tour Packages Section -->
+        <section id="packages" class="container">
+            <h2 class="section-title">Popular Tour Packages</h2>
+            <div class="packages-container">
+                
+                <!-- Package 1 -->
+                <div class="package-card">
+                    <img src="Images/Tsomgo lake.jpg" alt="Tsomgo Lake" class="package-img">
+                    <div class="package-content">
+                        <h3>Tsomgo Lake</h3>
+                        <p>1 day exploring the spiritual lake, visiting all major attractions.</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Package 2 -->
+                <div class="package-card">
+                    <img src="Images/gurudongmar lake2.jpeg" alt="Gurudongmar Lake" class="package-img">
+                    <div class="package-content">
+                        <h3>Gurudongmar Lake</h3>
+                        <p>4 days 3 nights exploration. Enjoy the scenic beauty of the place.</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Package 3 -->
+                <div class="package-card">
+                    <img src="Images/Namchi.jpg" alt="Namchi Package" class="package-img">
+                    <div class="package-content">
+                        <h3>Namchi Package</h3>
+                        <p>1 day discovering ancient traditions and modern wonders.</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Package 4 -->
+                <div class="package-card">
+                    <img src="Images/Zuluk3.jpg" alt="Silk Route" class="package-img">
+                    <div class="package-content">
+                        <h3>Zuluk Silk Route</h3>
+                        <p>1 day tour to Lake. Visiting the major tourist destinations.</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Package 5 -->
+                <div class="package-card">
+                    <img src="Images/pelling screenshot.jpg" alt="Sky Wlk" class="package-img">
+                    <div class="package-content">
+                        <h3>Sky Walk, Pelling</h3>
+                        <p>2 days, visiting all major tourist attractions.</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Package 6 -->
+                <div class="package-card">
+                    <img src="Images/MG Marg.jpg" alt="Sky Wlk" class="package-img">
+                    <div class="package-content">
+                        <h3>Gangtok Sightseeing</h3>
+                        <p>1 day in the city with stunning views and relaxing in nature.</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop6">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Gallery Section -->
+        <section id="gallery" class="container gallery">
+            <h2 class="section-title">Travel Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="Images/gangtok.webp" alt="Travel Image 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/Gurudongmar-Lake 3.jpg" alt="Travel Image 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/pelling screenshot.jpg" alt="Travel Image 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/Lachen Monastry.jpg" alt="Travel Image 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/Namchi.jpg" alt="Travel Image 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/Tarey-Bhir.jpg" alt="Travel Image 6">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/Yumthang.jpg" alt="Travel Image 7">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/rabdentse-ruins.jpg" alt="Travel Image 8">
+                </div>
+            </div>
+        </section>
+
+        <!--Contact Form & Map Section-->
+        <section id="contact" class="container">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="section-title">Contact Us</h2>
+                        <div class="Form-sty">
+                            <div class="form-Div">
+                                <form id="queryForm" action="/send-query" method="POST">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="full name " required><br>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="email " required><br>
+                                    <input type="number" class="form-control" id="phone" name="phone" placeholder="Contact No" required><br>
+                                    <textarea type="text" class="form-control" id="message" name="message" placeholder="Your Message" required></textarea><br>
+                                    <div class="Div-button">
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div class="col-md-6">
+                      <h2 class="section-title">Map</h2>
+                      <div class="Map-div">
+                            <div class="map-inn">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56706.18135408097!2d88.57927513322589!3d27.340205902048996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e6a56a5805eafb%3A0x73d6132c501c8f20!2sGangtok%2C%20Sikkim!5e0!3m2!1sen!2sin!4v1751534551294!5m2!1sen!2sin" width="490" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>DP Travel</h3>
+                        <p>Making your travel dreams come true since 2025. We specialize in creating unforgettable experiences around Sikkim.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#packages">Tour Packages</a></li>
+                            <li><a href="#gallery">Gallery</a></li>
+                            <li><a href="#">Special Offers</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">0.Qs</a></li>
+                            <li><a href="#">Terms & Conditions</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#"> Support</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Contact Us</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">info@travelease.com</a></li>
+                            <li><a href="tel:+918348945765">8348945765</a></li>
+                            <li><a href="#">New Market, Pakyong</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 DP Travels(Destination Paradise). All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+        <!-- Button trigger modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Tsomgo Plan</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                          <h4>
+                            Tsomgo Lake (3 days - 2 nights) 
+                          </h4> 
+                          <strong>Day 1:</strong> Pick up at Bagdogra Airport/ NJP railway station - Gangtok 130km/4hrs 30min (Approx).<br>
+                          <strong>Day 2:</strong> Early morning tour to Tsomgo lake. Places to visit:-<br>
+                          <ul>
+                            <li>Old Baba Mandir</li>
+                            <li>New Baba Mandir</li>
+                            <li>Tsomgo Lake</li>
+                          </ul>
+                          And then back to Gangtok.<br>
+                          <strong>Day 3:</strong> Drop to Bagdogra Airport/ NJP railway station according to schedule.
+                        </p>
+                        <div class="container-modal">
+                            <div class="form-Div">
+                                <form id="tosmoForm" action="/send-tsomo" method="POST">
+                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh"  class="form-control" name="veh">
+                                        <option value="">--Select--</option>
+                                        <option value="Luxury 12k">Luxury 12K</option>
+                                        <option value="Delux 16k">Delux 16K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div> 
+        </div>
+        <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Gurudongmar Plan</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <h4>
+                                Gurudongmar (4 days - 3 nights)
+                            </h4>
+                            <strong>Day 1:</strong> Places to visit-
+                            <ul>
+                                <li>Lachen(9,400 ft, 124 km)</li>
+                                <li>Twin Waterfall</li>
+                                <li>Singik View Point</li>
+                            </ul>
+                            <strong>Day 2:</strong> Places to visit-
+                            <ul>
+                                <li>Thangu(13,500 ft, 31kms from Lachen)</li>
+                                <li>Chopta Valley (13,200 ft)</li>
+                                <li>Gurudongmar Lake (17,800 ft **ONLY INDIAN NATIONAL IS ALLOWED)</li>
+                            </ul>
+                            <strong>Day 3:</strong> Places to visit-
+                            <ul>
+                                <li>Yumthang Valley (11,800 ft)</li>
+                                <li>Hot Spring</li> 
+                                <li>Back to Lachung</li>  
+                            </ul>
+                            <strong>Day 4:</strong> Drop to Gangtok. Tour End.  
+                        </p>
+                        <div class="container-modal">
+                            <div class="form-Div">
+                                <form id="guruForm" action="/send-guru" method="POST">
+                                    <input type="text" class="form-control" id="name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh"  class="form-control" name="veh">
+                                        <option value="">--Select--</option>
+                                        <option value="Luxury 20k">Luxury 20K</option>
+                                        <option value="Delux 28k">Delux 28K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div> 
+        </div>
+        <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Namchi Plan</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <h4>Namchi(1 Day Tour)</h3>
+                            <strong>Tour Day:</strong> Morning Drive to Namchi. Destinations to cover:- <br>
+                            <ul>
+                                <li>Char-Dham</li>
+                                <li>Rose Garden</li>
+                                <li>Smdruptse</li>
+                                <li>Rock Garden</li>
+                            </ul>
+                        </p>
+                        <div class="container-modal">
+                            <div class="form-Div">
+                               <form id="namchiForm" action="/send-namchi" method="POST">
+                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh"  class="form-control" name="veh">
+                                        <option value="">--Select--</option>
+                                        <option value="Luxury 5k">Luxury 5K</option>
+                                        <option value="Delux 8k">Delux 8K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div> 
+        </div>
+        <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Zuluk Plan</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <h4>Zuluk (1 Day Tour)</h4>
+                            <strong>Tour day:</strong> Destinations to cover:-
+                            <ul>
+                                <li>Thambi View Point</li>
+                                <li>Kupup</li>
+                                <li>Old Baba Mandir</li>
+                                <li>New Baba Mandir</li>
+                                <li>Tsomgo Lake</li>
+                                <li>Drop at MG Marg, Gangtok.</li>
+                            </ul>
+                        </p>
+                        <div class="container-modal">
+                            <div class="form-Div">
+                                <form id="zulukForm" action="/send-zuluk" method="POST">
+                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh"  class="form-control" name="veh">
+                                        <option value="">--Select--</option>
+                                        <option value="Luxury 6k">Luxury 6K</option>
+                                        <option value="Delux 8k">Delux 8K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div> 
+        </div>
+        <div class="modal fade" id="staticBackdrop5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Pelling Plan</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <h4>Pelling (2 Days 1 Night)</h4>
+                            <strong>Day 1:</strong>Places to visit-
+                            <ul>
+                                <li>Tuluk Birds Park</li>
+                                <li>Rabdentse Ruins</li>
+                                <li>Pemayngtse Monastry</li>
+                            </ul>
+                            <strong>Day 2:</strong> Places to visit-
+                            <ul>
+                                <li>Sky Walk, Pelling</li>
+                                <li>Buddha Park, Ravangla</li>
+                                <li>Visit to Mg Marg, Gangtok</li>                                
+                            </ul>
+                            Tour Ends.
+                        </p>
+                        <div class="container-modal">
+                            <div class="form-Div">
+                                <form id="pellingForm" action="/send-pelling" method="POST">
+                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh"  class="form-control" name="veh">
+                                        <option value="">--Select--</option>
+                                        <option value="Luxury 6k">Luxury 6K</option>
+                                        <option value="Delux 9k">Delux 9K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div> 
+        </div>              
+        <div class="modal fade" id="staticBackdrop6" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Sightseeing</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <h4>Gangtok Sightseeing (1 Day)</h4>
+                            <strong>Tour Day:</strong>Places to visit-
+                            <ul>
+                                <li>Ganesh Tok</li>
+                                <li>Hanuman Tok</li>
+                                <li>Tashi View Point</li>
+                                <li>Seven Sisters Waterfall</li>
+                                <li>MG Marg</li>
+                            </ul>
+                            Tour Ends.
+                        </p>
+                        <div class="container-modal">
+                            <div class="form-Div">
+                               <form id="gtkForm" action="/send-gtk" method="POST">
+                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Name " required><br>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="E-mail " required><br>
+                                    <input type="number" class="form-control" id="Ctno" name="Ctno" placeholder="Contact No" required><br>
+                                    <input type="number" class="form-control" id="nofTravellers" name="nofTravellers" placeholder="number of travellers" required><br>
+                                    <select size="1" id="veh"  class="form-control" name="veh">
+                                        <option value="">--Select--</option>
+                                        <option value="Luxury 8k">Luxury 8K</option>
+                                        <option value="Delux 10k">Delux 10K</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Book</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </div>
+            </div>
+        </div>
+        <script>
+            document.getElementById("emailForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const to = document.getElementById("to").value;
+                const subject = document.getElementById("subject").value;
+                const text = document.getElementById("text").value;
+
+                const res = await fetch("/send-email", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ to, subject, text })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    alert("Email successfully sent!");
+                }
+                else {
+                    alert("Failed to send email.");
+                }
+            });
+        </script>
+    </body>
+</html>
