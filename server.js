@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
+const { Script } = require('vm');
 require('dotenv').config();
 
 const app = express();
@@ -107,10 +108,15 @@ app.post('/send-query', async (req, res) => {
       `
     });
 
-   res.json({ success: true, message: "Email sent successfully!" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: "Failed to send email." });
+    res.status(200).json({ success: true, message: 'Message sent successfully!' });
+
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Error sending message',
+      details: error.message
+    });
   }
 });
 
@@ -158,7 +164,10 @@ app.post('/send-gtk', async (req, res) => {
       `
     });
 
-    res.status(200).json({ success: true, message: 'Message sent successfully!' });
+    //res.status(200).json({ success: true, message: 'Message sent successfully!' });
+    //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
+
+    res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
 
   } catch (error) {
     console.error('Error sending email:', error);
@@ -215,7 +224,10 @@ app.post('/send-pelling', async (req, res) => {
       `
     });
 
-    res.status(200).json({ success: true, message: 'Message sent successfully!' });
+    //res.status(200).json({ success: true, message: 'Message sent successfully!' });
+    //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
+
+    res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
 
   } catch (error) {
     console.error('Error sending email:', error);
@@ -271,7 +283,10 @@ app.post('/send-Zuluk', async (req, res) => {
       `
     });
 
-    res.status(200).json({ success: true, message: 'Message sent successfully!' });
+    //res.status(200).json({ success: true, message: 'Message sent successfully!' });
+    //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
+
+    res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
 
   } catch (error) {
     console.error('Error sending email:', error);
@@ -326,14 +341,18 @@ app.post('/send-namchi', async (req, res) => {
       `
     });
 
-    res.status(200).json({ success: true, message: 'Message sent successfully!' });
+    //res.status(200).json({ success: true, message: 'Message sent successfully!' });
+    //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
 
-  } catch (error) {
+    res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
+
+  } 
+  catch (error) {
     console.error('Error sending email:', error);
     res.status(500).json({
-      success: false,
-      error: 'Error sending message',
-      details: error.message
+    success: false,
+    error: 'Error sending message',
+    details: error.message
     });
   }
 });
@@ -381,7 +400,10 @@ app.post('/send-guru', async (req, res) => {
       `
     });
 
-    res.status(200).json({ success: true, message: 'Message sent successfully!' });
+   //res.status(200).json({ success: true, message: 'Message sent successfully!' });
+   //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
+
+   res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
 
   } catch (error) {
     console.error('Error sending email:', error);
@@ -436,7 +458,10 @@ app.post('/send-tsomo', async (req, res) => {
       `
     });
 
-    res.status(200).json({ success: true, message: 'Message sent successfully!' });
+    //res.status(200).json({ success: true, message: 'Message sent successfully!' });
+    //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
+
+    res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
 
   } catch (error) {
     console.error('Error sending email:', error);
