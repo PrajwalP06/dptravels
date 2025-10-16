@@ -30,12 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
     "Pelling": { desc: "Picturesque hill town with monasteries, waterfalls, and the Sky Walk.", cabs: { "WagonR": 6000, "Innova": 9000 } }
   };
 
-  // Destination change
+  // Update cab options when destination changes
   destinationSelect.addEventListener("change", () => {
     const selected = destinations[destinationSelect.value];
     cabSelect.innerHTML = '<option value="">-- Select Cab --</option>';
-
-    console.log("Destination selected:", destinationSelect.value);
 
     if (selected) {
       Object.entries(selected.cabs).forEach(([cab, price]) => {
@@ -50,11 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Cab change
+  // Update price when cab changes
   cabSelect.addEventListener("change", () => {
     const dest = destinations[destinationSelect.value];
     const cab = cabSelect.value;
-    console.log("Cab selected:", cab);
     if (dest && cab) {
       priceDisplay.innerHTML = `
         <div><strong>${dest.desc}</strong></div>
@@ -66,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Form submission
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    console.log("Form submit triggered");
 
     const name = form.name.value.trim();
     const email = form.email.value.trim();
@@ -77,36 +73,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const bookingDate = dateInput.value.trim();
     const message = form.message.value.trim();
 
-    // Debugging log
-    console.log("Collected form data:", { name, email, phone, destination, cab, travellers, bookingDate, message });
-
     // Validation
     if (!name || !email || !phone || !destination || !cab || !travellers || !bookingDate) {
-      console.warn("⚠️ Missing fields detected");
       showNotification("⚠️ Please fill in all required fields, including booking date.", "red");
       return;
     }
 
     if (new Date(bookingDate) < new Date(today)) {
-      console.warn("⚠️ Booking date is in the past");
       showNotification("⚠️ Please select a valid booking date (today or later).", "red");
       return;
     }
 
     const button = form.querySelector("button[type='submit']");
     button.disabled = true;
-    button.textContent = "Processing...";
+    button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...`;
 
     try {
-      console.log("Sending booking data to server...");
       const response = await fetch("/send-booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, phone, destination, cab, travellers, bookingDate, message })
       });
 
-      const data = await response.json();
-      console.log("Server response:", data);
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        data = { success: false, error: "Server returned invalid response" };
+      }
 
       if (response.ok && data.success) {
         const formattedDate = new Date(bookingDate).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
@@ -124,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showNotification("⚠️ Server error. Please try again later.", "red");
     } finally {
       button.disabled = false;
-      button.textContent = "Book Now";
+      button.innerHTML = "Book Now";
     }
   });
 

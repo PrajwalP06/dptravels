@@ -161,9 +161,12 @@ app.post("/send-query", async (req, res) => {
     });
   }
 });
+
+
+
 app.post('/send-booking', async (req, res) => {
   try {
-    console.log("Received booking:", req.body); // 🔹 Debug log
+    console.log("Received booking:", req.body);
 
     const { name, email, phone, destination, cab, travellers, bookingDate, message } = req.body;
 
@@ -183,49 +186,38 @@ app.post('/send-booking', async (req, res) => {
     // Format date
     const formattedDate = new Date(bookingDate).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
 
-    // Create email
+    // Email content
     const mailOptions = {
       from: `"DP Travels Booking" <${process.env.EMAIL_USER}>`,
-      to: process.env.RECEIVER_EMAIL,
+      to: process.env.RECEIVER_EMAIL || process.env.EMAIL_USER,
       subject: `🧳 New Booking Request from ${name}`,
-      html: `
-        <div style="font-family: 'Segoe UI', Roboto, Arial, sans-serif; background:#f8f9fb; padding:30px;">
-          <div style="max-width:600px; margin:0 auto; background:#fff; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.06); overflow:hidden;">
-            <div style="background:linear-gradient(135deg,#0d47a1,#1976d2); padding:20px 25px;">
-              <h2 style="color:#fff; margin:0; font-weight:600;">New Tour Booking Request</h2>
-            </div>
-            <div style="padding:25px;">
-              <table style="width:100%; border-collapse:collapse;">
-                <tr><td style="padding:8px 0;"><strong>👤 Name:</strong></td><td>${name}</td></tr>
-                <tr><td style="padding:8px 0;"><strong>📧 Email:</strong></td><td>${email}</td></tr>
-                <tr><td style="padding:8px 0;"><strong>📞 Phone:</strong></td><td>${phone}</td></tr>
-                <tr><td style="padding:8px 0;"><strong>📍 Destination:</strong></td><td>${destination}</td></tr>
-                <tr><td style="padding:8px 0;"><strong>🚗 Cab Type:</strong></td><td>${cab}</td></tr>
-                <tr><td style="padding:8px 0;"><strong>👥 Travellers:</strong></td><td>${travellers}</td></tr>
-                <tr><td style="padding:8px 0;"><strong>📅 Booking Date:</strong></td><td>${formattedDate}</td></tr>
-                ${message ? `<tr><td style="padding:8px 0; vertical-align:top;"><strong>📝 Message:</strong></td><td>${message}</td></tr>` : ''}
-              </table>
-              <div style="margin-top:25px; text-align:center;">
-                <a href="mailto:${email}" style="display:inline-block; padding:10px 20px; background:linear-gradient(135deg,#0d47a1,#1976d2); color:#fff; text-decoration:none; border-radius:8px; font-weight:500;">
-                  Reply to ${name}
-                </a>
-              </div>
-            </div>
-            <div style="background:#f4f6f8; padding:15px 25px; text-align:center; font-size:0.9rem; color:#555;">
-              This booking was submitted via <strong>DP Travels</strong> website.<br>
-              <span style="font-size:0.85rem; color:#888;">© ${new Date().getFullYear()} DP Travels</span>
-            </div>
-          </div>
-        </div>
-      `
+      html: `<p>New booking details:</p>
+             <ul>
+               <li>Name: ${name}</li>
+               <li>Email: ${email}</li>
+               <li>Phone: ${phone}</li>
+               <li>Destination: ${destination}</li>
+               <li>Cab: ${cab}</li>
+               <li>Travellers: ${travellers}</li>
+               <li>Booking Date: ${formattedDate}</li>
+               ${message ? `<li>Message: ${message}</li>` : ''}
+             </ul>`
     };
 
     await transporter.sendMail(mailOptions);
 
+    // Always respond with JSON
     res.status(200).json({ success: true, message: 'Booking request sent successfully!' });
+
   } catch (err) {
     console.error("Error sending booking:", err);
-    res.status(500).json({ success: false, error: 'Error submitting booking. Please try again later.', details: err.message });
+
+    // Catch any errors and respond with valid JSON
+    res.status(500).json({
+      success: false,
+      error: 'Error submitting booking. Please try again later.',
+      details: err.message || 'Unknown server error'
+    });
   }
 });
 
