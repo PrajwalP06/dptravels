@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DP Travels | Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Style.css">
+
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #e3f2fd, #fafafa);
+        color: #333;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+      }
+      h2 { font-weight: 600; color: #0d47a1; text-align: center; margin-bottom: 0.5rem; }
+      .booking-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+        padding: 40px 35px;
+        max-width: 620px;
+        width: 100%;
+        transition: all 0.3s ease;
+      }
+      .form-control, .form-select {
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        padding: 10px 14px;
+        transition: all 0.2s ease;
+      }
+      .form-control:focus, .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.15);
+      }
+      .price-box {
+        background: #f4f6f8;
+        border: 1px solid #dce1e6;
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        font-size: 1.05rem;
+        color: #222;
+        font-weight: 500;
+        margin-top: 12px;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #0d47a1, #1976d2);
+        border: none;
+        border-radius: 12px;
+        padding: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #1565c0, #2196f3);
+        transform: translateY(-1px);
+      }
+      #notification { font-size: 0.95rem; margin-top: 12px; text-align: center; font-weight: 500; }
+    </style>
+  </head>
+  <body>
+    <div class="booking-card">
+      <!-- Navbar -->
+        <nav>
+            <div class="container navbar" style="height: 35px;">
+                <div class="logo"><img src="Images/DP Travels.jpg" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;">DP Travels</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+
+      <h2 style="margin-top: 5%;">Book Your Tour</h2>
+      <p class="text-center text-muted">Choose your destination and cab type to get instant pricing.</p>
+      <form id="bookingForm">
+        <div class="mb-3">
+          <label for="name" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone</label>
+          <input type="tel" class="form-control" id="phone" name="phone" placeholder="Contact Number" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="destination" class="form-label">Destination</label>
+          <select class="form-select" id="destination" required>
+            <option value="">-- Select Destination --</option>
+            <option value="Tsomo Lake">Tsomo Lake</option>
+            <option value="Namchi">Namchi</option>
+            <option value="Guru Dongmar Lake">Guru Dongmar Lake</option>
+            <option value="Nathu La">Nathu La</option>
+            <option value="Zuluk">Zuluk</option>
+            <option value="Gangtok">Gangtok</option>
+            <option value="Pelling">Pelling</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="cab" class="form-label">Cab Type</label>
+          <select class="form-select" id="cab" required>
+            <option value="">-- Select Cab --</option>
+          </select>
+        </div>
+
+        <div id="priceDisplay" class="price-box">Please select a destination & cab</div>
+
+        <div class="mb-3 mt-4">
+          <label for="travellers" class="form-label">Number of Travellers</label>
+          <input type="number" class="form-control" id="travellers" name="travellers" min="1" required>
+        </div>
+
+        <!-- ✅ Booking Date -->
+        <div class="mb-3">
+          <label for="bookingDate" class="form-label">Booking Date</label>
+          <input type="date" class="form-control" id="bookingDate" name="bookingDate" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="message" class="form-label">Additional Notes (Optional)</label>
+          <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Book Now</button>
+        <div id="notification"></div>
+      </form>
+    </div>
+
+    <script>
+      console.log("Booking JS loaded");
+
+      const destinations = {
+        "Tsomo Lake": { desc: "A serene high-altitude lake surrounded by snow-clad mountains.", cabs: { "WagonR": 8000, "Innova": 12000 } },
+        "Namchi": { desc: "Home to the famous Char Dham and lush tea gardens.", cabs: { "WagonR": 5000, "Innova": 8000 } },
+        "Guru Dongmar Lake": { desc: "A sacred and breathtaking lake at one of the world’s highest altitudes.", cabs: { "WagonR": 20000, "Innova": 28000 } },
+        "Zuluk": { desc: "The famous Silk Route, beautiful landscapes", cabs: { "WagonR": 9000, "Innova": 15000 } },
+        "Nathu La": { desc: "A mountain pass on the Indo-China border offering stunning views.", cabs: { "WagonR": 9000, "Innova": 15000 } },
+        "Gangtok": { desc: "The vibrant capital city of Sikkim, known for monasteries and mountain views.", cabs: { "WagonR": 8000, "Innova": 10000 } },
+        "Pelling": { desc: "Picturesque hill town with monasteries, waterfalls, and the Sky Walk.", cabs: { "WagonR": 6000, "Innova": 9000 } }
+      };
+
+      const form = document.getElementById("bookingForm");
+      const destinationSelect = document.getElementById("destination");
+      const cabSelect = document.getElementById("cab");
+      const priceDisplay = document.getElementById("priceDisplay");
+      const bookingDateInput = document.getElementById("bookingDate");
+      const today = new Date().toISOString().split("T")[0];
+      bookingDateInput.min = today;
+
+      // Update cab options & price
+      destinationSelect.addEventListener("change", () => {
+        const dest = destinations[destinationSelect.value];
+        cabSelect.innerHTML = '<option value="">-- Select Cab --</option>';
+        if (dest) {
+          Object.entries(dest.cabs).forEach(([cab, price]) => {
+            const opt = document.createElement("option");
+            opt.value = cab;
+            opt.textContent = `${cab} - ₹${price.toLocaleString()}`;
+            cabSelect.appendChild(opt);
+          });
+          priceDisplay.textContent = dest.desc;
+        } else {
+          priceDisplay.textContent = "Please select a destination & cab";
+        }
+      });
+
+      cabSelect.addEventListener("change", () => {
+        const dest = destinations[destinationSelect.value];
+        const cab = cabSelect.value;
+        if (dest && cab) {
+          priceDisplay.textContent = `💰 Price: ₹${dest.cabs[cab].toLocaleString()}`;
+        }
+      });
+
+      // Form submit
+      form.addEventListener("submit", async e => {
+        e.preventDefault();
+        const data = {
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          phone: form.phone.value.trim(),
+          destination: destinationSelect.value,
+          cab: cabSelect.value,
+          travellers: form.travellers.value.trim(),
+          bookingDate: bookingDateInput.value,
+          message: form.message.value.trim()
+        };
+
+        console.log("Submitting booking:", data);
+
+        const notification = document.getElementById("notification");
+        notification.textContent = "⏳ Sending your booking request...";
+        notification.style.color = "#555";
+
+        try {
+          const res = await fetch("/send-booking", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+          const result = await res.json();
+          console.log("Server response:", result);
+
+          if (result.success) {
+            notification.textContent = "✅ Booking request sent successfully!";
+            notification.style.color = "green";
+            form.reset();
+            priceDisplay.textContent = "Please select a destination & cab";
+            cabSelect.innerHTML = '<option value="">-- Select Cab --</option>';
+            bookingDateInput.min = today;
+          } else {
+            notification.textContent = "❌ " + (result.error || "Failed to send booking.");
+            notification.style.color = "red";
+          }
+        } catch (err) {
+          console.error("Booking submission error:", err);
+          notification.textContent = "❌ Error sending booking.";
+          notification.style.color = "red";
+        }
+      });
+    </script>
+    
+  </body>
+</html>

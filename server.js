@@ -3,24 +3,24 @@ const nodemailer = require('nodemailer');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
-const { Script } = require('vm');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(express.json()); // parse JSON body
 
-// ✅ Middleware
 
-
+// ✅ Security middleware
 app.use(helmet({
   contentSecurityPolicy: {
+    useDefaults: true,
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: [
         "'self'",
-        "https://cdn.jsdelivr.net",  // ✅ allow Bootstrap or any JS from jsDelivr
-        "https://cdnjs.cloudflare.com", // (optional) for other CDNs
-        "'unsafe-inline'" // Optional: if you use inline JS (not recommended)
+        "https://cdn.jsdelivr.net",
+        "https://cdnjs.cloudflare.com",
+        "'unsafe-inline'" // Only if absolutely necessary
       ],
       styleSrc: [
         "'self'",
@@ -32,31 +32,50 @@ app.use(helmet({
         "'self'",
         "https://fonts.gstatic.com"
       ],
-      imgSrc: ["'self'", "data:"],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "https://cdn.jsdelivr.net",
+        "https://cdnjs.cloudflare.com"
+      ],
       frameSrc: ["'self'", "https://www.google.com"],
-      connectSrc: ["'self'"],
+
+      // ✅ FIXED: allow external connections for CDN `.map` requests
+      connectSrc: [
+        "'self'",
+        "https://cdn.jsdelivr.net",
+        "https://cdnjs.cloudflare.com"
+      ],
+
       objectSrc: ["'none'"]
     }
-  }
+  },
+  crossOriginEmbedderPolicy: false, // Optional: helps when loading external resources
+  crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
+// ✅ Middleware setup
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // Required for form submissions
+app.use(express.urlencoded({ extended: true }));
+
+// ✅ Rate limiting (prevents abuse)
 app.use(rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per window
+  standardHeaders: true,
+  legacyHeaders: false
 }));
 
-// ✅ Serve static files
+// ✅ Serve static files (e.g., HTML, CSS, JS)
 app.use(express.static('public'));
 
-// ✅ Root GET route
+// ✅ Root route
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-// ✅ Nodemailer transporter setup
+// ✅ Nodemailer setup
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -68,408 +87,145 @@ const transporter = nodemailer.createTransport({
   maxMessages: 100,
   rateDelta: 60000,
   rateLimit: 10
-});
-
-// ✅ Contact form POST route
-app.post('/send-query', async (req, res) => {
+});// ✅ Contact form route
+app.post("/send-query", async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
 
     // ✅ Validate required fields
-    const requiredFields = ['name', 'email', 'phone', 'message'];
-    const missingFields = requiredFields.filter(field => !req.body[field]);
+    const requiredFields = ["name", "email", "phone", "message"];
+    const missingFields = requiredFields.filter(
+      (field) => !req.body[field] || req.body[field].trim() === ""
+    );
 
     if (missingFields.length > 0) {
       return res.status(400).json({
         success: false,
-        error: `Missing required fields: ${missingFields.join(', ')}`
+        error: `Missing required fields: ${missingFields.join(", ")}`,
       });
     }
 
-    // ✅ Email validation
+    // ✅ Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid email format.",
+      });
+    }
+
+    // ✅ Limit message length
+    if (message.length > 1000) {
+      return res.status(400).json({
+        success: false,
+        error: "Message is too long (max 1000 characters).",
+      });
+    }
+
+    // ✅ Create transporter (configure with your email credentials)
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER, // your email
+        pass: process.env.EMAIL_PASS, // app password
+      },
+    });
+
+    // ✅ Define email content
+    const mailOptions = {
+      from: `"Website Contact" <${process.env.EMAIL_USER}>`,
+      to: process.env.RECEIVER_EMAIL || process.env.EMAIL_USER,
+      subject: "📩 New Contact Form Query",
+      html: `
+        <h3>New Contact Message</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Message:</strong> ${message}</p>
+      `,
+    };
+
+    // ✅ Send email
+    await transporter.sendMail(mailOptions);
+
+    // ✅ Respond to frontend
+    res.json({
+      success: true,
+      message: "Your message has been sent successfully!",
+    });
+  } catch (err) {
+    console.error("❌ Error in /send-query:", err);
+    res.status(500).json({
+      success: false,
+      error: "Server error. Please try again later.",
+    });
+  }
+});
+app.post('/send-booking', async (req, res) => {
+  try {
+    console.log("Received booking:", req.body); // 🔹 Debug log
+
+    const { name, email, phone, destination, cab, travellers, bookingDate, message } = req.body;
+
+    // Required fields
+    const requiredFields = ['name', 'email', 'phone', 'destination', 'cab', 'travellers', 'bookingDate'];
+    const missingFields = requiredFields.filter(f => !req.body[f] || String(req.body[f]).trim() === '');
+    if (missingFields.length > 0) {
+      return res.status(400).json({ success: false, error: `Missing required fields: ${missingFields.join(', ')}` });
+    }
+
+    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ success: false, error: 'Invalid email format' });
     }
 
-    // ✅ Send email
-    await transporter.sendMail({
-      from: `"Website Form" <${process.env.EMAIL_USER}>`,
+    // Format date
+    const formattedDate = new Date(bookingDate).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+
+    // Create email
+    const mailOptions = {
+      from: `"DP Travels Booking" <${process.env.EMAIL_USER}>`,
       to: process.env.RECEIVER_EMAIL,
-      subject: `New Query from ${name}`,
+      subject: `🧳 New Booking Request from ${name}`,
       html: `
-        <h3>New Contact Form Submission</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Subject:</strong> Queries</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
+        <div style="font-family: 'Segoe UI', Roboto, Arial, sans-serif; background:#f8f9fb; padding:30px;">
+          <div style="max-width:600px; margin:0 auto; background:#fff; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.06); overflow:hidden;">
+            <div style="background:linear-gradient(135deg,#0d47a1,#1976d2); padding:20px 25px;">
+              <h2 style="color:#fff; margin:0; font-weight:600;">New Tour Booking Request</h2>
+            </div>
+            <div style="padding:25px;">
+              <table style="width:100%; border-collapse:collapse;">
+                <tr><td style="padding:8px 0;"><strong>👤 Name:</strong></td><td>${name}</td></tr>
+                <tr><td style="padding:8px 0;"><strong>📧 Email:</strong></td><td>${email}</td></tr>
+                <tr><td style="padding:8px 0;"><strong>📞 Phone:</strong></td><td>${phone}</td></tr>
+                <tr><td style="padding:8px 0;"><strong>📍 Destination:</strong></td><td>${destination}</td></tr>
+                <tr><td style="padding:8px 0;"><strong>🚗 Cab Type:</strong></td><td>${cab}</td></tr>
+                <tr><td style="padding:8px 0;"><strong>👥 Travellers:</strong></td><td>${travellers}</td></tr>
+                <tr><td style="padding:8px 0;"><strong>📅 Booking Date:</strong></td><td>${formattedDate}</td></tr>
+                ${message ? `<tr><td style="padding:8px 0; vertical-align:top;"><strong>📝 Message:</strong></td><td>${message}</td></tr>` : ''}
+              </table>
+              <div style="margin-top:25px; text-align:center;">
+                <a href="mailto:${email}" style="display:inline-block; padding:10px 20px; background:linear-gradient(135deg,#0d47a1,#1976d2); color:#fff; text-decoration:none; border-radius:8px; font-weight:500;">
+                  Reply to ${name}
+                </a>
+              </div>
+            </div>
+            <div style="background:#f4f6f8; padding:15px 25px; text-align:center; font-size:0.9rem; color:#555;">
+              This booking was submitted via <strong>DP Travels</strong> website.<br>
+              <span style="font-size:0.85rem; color:#888;">© ${new Date().getFullYear()} DP Travels</span>
+            </div>
+          </div>
+        </div>
       `
-    });
+    };
 
-    res.status(200).json({ success: true, message: 'Message sent successfully!' });
+    await transporter.sendMail(mailOptions);
 
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Error sending message',
-      details: error.message
-    });
-  }
-});
-
-
-
-// send gtk modal from
-
-
-app.post('/send-gtk', async (req, res) => {
-  try {
-    const { Name, Email, Ctno, nofTravellers,veh} = req.body;
-
-    // ✅ Validate required fields
-    const requiredFields = ['Name', 'Email', 'Ctno', 'nofTravellers','veh'];
-    const missingFields = requiredFields.filter(field => !req.body[field]);
-
-    if (missingFields.length > 0) {
-      return res.status(400).json({
-        success: false,
-        error: `Missing required fields: ${missingFields.join(', ')}`
-      });
-    }
-
-    // ✅ Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(Email)) {
-      return res.status(400).json({ success: false, error: 'Invalid email format' });
-    }
-
-    // ✅ Send email
-    await transporter.sendMail({
-      from: `"Website Form" <${process.env.EMAIL_USER}>`,
-      to: process.env.RECEIVER_EMAIL,
-      subject: `New Query from ${Name}`,
-      html: `
-        <h3>New Gtk Booking</h3>
-         <p><strong>Subject:</strong> Gtk Boking</p>
-        <p><strong>Name:</strong> ${Name}</p>
-        <p><strong>Email:</strong> ${Email}</p>
-        <p><strong>No Of Travellers:</strong> ${nofTravellers}</p>
-        <p><strong>Vehicle Type:</strong> ${veh}</p>
-        <p><strong>Phone:</strong> ${Ctno}</p>
-       
-      
-      `
-    });
-
-    //res.status(200).json({ success: true, message: 'Message sent successfully!' });
-    //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
-
-    res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
-
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Error sending message',
-      details: error.message
-    });
-  }
-});
-
-
-
-
-// send Pelling modal from
-
-
-app.post('/send-pelling', async (req, res) => {
-  try {
-    const { Name, Email, Ctno, nofTravellers,veh} = req.body;
-
-    // ✅ Validate required fields
-    const requiredFields = ['Name', 'Email', 'Ctno', 'nofTravellers','veh'];
-    const missingFields = requiredFields.filter(field => !req.body[field]);
-
-    if (missingFields.length > 0) {
-      return res.status(400).json({
-        success: false,
-        error: `Missing required fields: ${missingFields.join(', ')}`
-      });
-    }
-
-    // ✅ Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(Email)) {
-      return res.status(400).json({ success: false, error: 'Invalid email format' });
-    }
-
-    // ✅ Send email
-    await transporter.sendMail({
-      from: `"Website Form" <${process.env.EMAIL_USER}>`,
-      to: process.env.RECEIVER_EMAIL,
-      subject: `New Query from ${Name}`,
-      html: `
-        <h3>New pelling Booking</h3>
-         <p><strong>Subject:</strong> Pelling Booking</p>
-        <p><strong>Name:</strong> ${Name}</p>
-        <p><strong>Email:</strong> ${Email}</p>
-        <p><strong>No Of Travellers:</strong> ${nofTravellers}</p>
-        <p><strong>Vehicle Type:</strong> ${veh}</p>
-        <p><strong>Phone:</strong> ${Ctno}</p>
-       
-      
-      `
-    });
-
-    //res.status(200).json({ success: true, message: 'Message sent successfully!' });
-    //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
-
-    res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
-
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Error sending message',
-      details: error.message
-    });
-  }
-});
-
-
-
-// send zuluk modal from
-
-
-app.post('/send-Zuluk', async (req, res) => {
-  try {
-    const { Name, Email, Ctno, nofTravellers,veh} = req.body;
-
-    // ✅ Validate required fields
-    const requiredFields = ['Name', 'Email', 'Ctno', 'nofTravellers','veh'];
-    const missingFields = requiredFields.filter(field => !req.body[field]);
-
-    if (missingFields.length > 0) {
-      return res.status(400).json({
-        success: false,
-        error: `Missing required fields: ${missingFields.join(', ')}`
-      });
-    }
-
-    // ✅ Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(Email)) {
-      return res.status(400).json({ success: false, error: 'Invalid email format' });
-    }
-
-    // ✅ Send email
-    await transporter.sendMail({
-      from: `"Website Form" <${process.env.EMAIL_USER}>`,
-      to: process.env.RECEIVER_EMAIL,
-      subject: `New Query from ${Name}`,
-      html: `
-        <h3>New zuluk Booking</h3>
-         <p><strong>Subject:</strong> Zuluk Booking</p>
-        <p><strong>Name:</strong> ${Name}</p>
-        <p><strong>Email:</strong> ${Email}</p>
-        <p><strong>No Of Travellers:</strong> ${nofTravellers}</p>
-        <p><strong>Vehicle Type:</strong> ${veh}</p>
-        <p><strong>Phone:</strong> ${Ctno}</p>
-       
-      
-      `
-    });
-
-    //res.status(200).json({ success: true, message: 'Message sent successfully!' });
-    //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
-
-    res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
-
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Error sending message',
-      details: error.message
-    });
-  }
-});
-
-
-// send Namchi modal from
-
-
-app.post('/send-namchi', async (req, res) => {
-  try {
-    const { Name, Email, Ctno, nofTravellers,veh} = req.body;
-
-    // ✅ Validate required fields
-    const requiredFields = ['Name', 'Email', 'Ctno', 'nofTravellers','veh'];
-    const missingFields = requiredFields.filter(field => !req.body[field]);
-
-    if (missingFields.length > 0) {
-      return res.status(400).json({
-        success: false,
-        error: `Missing required fields: ${missingFields.join(', ')}`
-      });
-    }
-
-    // ✅ Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(Email)) {
-      return res.status(400).json({ success: false, error: 'Invalid email format' });
-    }
-
-    // ✅ Send email
-    await transporter.sendMail({
-      from: `"Website Form" <${process.env.EMAIL_USER}>`,
-      to: process.env.RECEIVER_EMAIL,
-      subject: `New Query from ${Name}`,
-      html: `
-        <h3>New namchi Booking</h3>
-         <p><strong>Subject:</strong> Namchi Booking</p>
-        <p><strong>Name:</strong> ${Name}</p>
-        <p><strong>Email:</strong> ${Email}</p>
-        <p><strong>No Of Travellers:</strong> ${nofTravellers}</p>
-        <p><strong>Vehicle Type:</strong> ${veh}</p>
-        <p><strong>Phone:</strong> ${Ctno}</p>
-       
-      
-      `
-    });
-
-    //res.status(200).json({ success: true, message: 'Message sent successfully!' });
-    //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
-
-    res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
-
-  } 
-  catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({
-    success: false,
-    error: 'Error sending message',
-    details: error.message
-    });
-  }
-});
-
-
-// send Gurudongmar modal from
-
-
-app.post('/send-guru', async (req, res) => {
-  try {
-    const { Name, Email, Ctno, nofTravellers,veh} = req.body;
-
-    // ✅ Validate required fields
-    const requiredFields = ['Name', 'Email', 'Ctno', 'nofTravellers','veh'];
-    const missingFields = requiredFields.filter(field => !req.body[field]);
-
-    if (missingFields.length > 0) {
-      return res.status(400).json({
-        success: false,
-        error: `Missing required fields: ${missingFields.join(', ')}`
-      });
-    }
-
-    // ✅ Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(Email)) {
-      return res.status(400).json({ success: false, error: 'Invalid email format' });
-    }
-
-    // ✅ Send email
-    await transporter.sendMail({
-      from: `"Website Form" <${process.env.EMAIL_USER}>`,
-      to: process.env.RECEIVER_EMAIL,
-      subject: `New Query from ${Name}`,
-      html: `
-        <h3>New gurudongmar Booking</h3>
-         <p><strong>Subject:</strong> Gurudongmar Booking</p>
-        <p><strong>Name:</strong> ${Name}</p>
-        <p><strong>Email:</strong> ${Email}</p>
-        <p><strong>No Of Travellers:</strong> ${nofTravellers}</p>
-        <p><strong>Vehicle Type:</strong> ${veh}</p>
-        <p><strong>Phone:</strong> ${Ctno}</p>
-       
-      
-      `
-    });
-
-   //res.status(200).json({ success: true, message: 'Message sent successfully!' });
-   //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
-
-   res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
-
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Error sending message',
-      details: error.message
-    });
-  }
-});
-
-
-// send Tsomgo modal from
-
-
-app.post('/send-tsomo', async (req, res) => {
-  try {
-    const { Name, Email, Ctno, nofTravellers,veh} = req.body;
-
-    // ✅ Validate required fields
-    const requiredFields = ['Name', 'Email', 'Ctno', 'nofTravellers','veh'];
-    const missingFields = requiredFields.filter(field => !req.body[field]);
-
-    if (missingFields.length > 0) {
-      return res.status(400).json({
-        success: false,
-        error: `Missing required fields: ${missingFields.join(', ')}`
-      });
-    }
-
-    // ✅ Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(Email)) {
-      return res.status(400).json({ success: false, error: 'Invalid email format' });
-    }
-
-    // ✅ Send email
-    await transporter.sendMail({
-      from: `"Website Form" <${process.env.EMAIL_USER}>`,
-      to: process.env.RECEIVER_EMAIL,
-      subject: `New Query from ${Name}`,
-      html: `
-        <h3>New Tsomgo Booking</h3>
-         <p><strong>Subject:</strong> Tsomgo Booking</p>
-        <p><strong>Name:</strong> ${Name}</p>
-        <p><strong>Email:</strong> ${Email}</p>
-        <p><strong>No Of Travellers:</strong> ${nofTravellers}</p>
-        <p><strong>Vehicle Type:</strong> ${veh}</p>
-        <p><strong>Phone:</strong> ${Ctno}</p>
-       
-      
-      `
-    });
-
-    //res.status(200).json({ success: true, message: 'Message sent successfully!' });
-    //res.send('<h2>Message sent successully. </h2><a href="/">Go  Back</a> <script> setTimeout () => { window.location.href="/"; }, 3000); </script>');\
-
-    res.send(' <head><meta http-equiv="refresh" content="3; url=/" /> </head> <body><h2>Messsage sent...</h2></body>');
-
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Error sending message',
-      details: error.message
-    });
+    res.status(200).json({ success: true, message: 'Booking request sent successfully!' });
+  } catch (err) {
+    console.error("Error sending booking:", err);
+    res.status(500).json({ success: false, error: 'Error submitting booking. Please try again later.', details: err.message });
   }
 });
 
@@ -479,7 +235,3 @@ app.post('/send-tsomo', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });
-
-
-
-
