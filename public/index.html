@@ -217,7 +217,6 @@
                 </div>
             </div>
         </footer>
-
 <script>
 document.getElementById("queryForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -229,7 +228,7 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
   const notification = document.getElementById("notification");
   const submitButton = e.target.querySelector("button[type='submit']");
 
-  // ✅ Create a loading spinner
+  // ✅ Create loading spinner
   const spinner = document.createElement("div");
   spinner.classList.add("spinner-border", "spinner-border-sm", "text-light");
   spinner.setAttribute("role", "status");
@@ -244,7 +243,13 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
   notification.style.display = "none";
 
   try {
-    const response = await fetch("http://localhost:3000/send-query", {
+    // ✅ Automatically switch between localhost and production
+    const baseURL =
+      window.location.hostname === "localhost"
+        ? "http://localhost:3000"
+        : "https://www.dptravels.in";
+
+    const response = await fetch(`${baseURL}/send-query`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, phone, message }),
@@ -268,6 +273,7 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
     notification.style.color = "red";
     notification.style.borderColor = "red";
     notification.textContent = "Failed to send. Please try again later.";
+    console.error("Form submission error:", error);
   } finally {
     // ✅ Re-enable button & restore text
     submitButton.disabled = false;
