@@ -8,11 +8,12 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ Middleware
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-// ✅ Security
+// Security
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -33,10 +34,7 @@ app.use(
   })
 );
 
-// ✅ CORS
-app.use(cors());
-
-// ✅ Rate limiting
+// Rate limiting
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -46,16 +44,16 @@ app.use(
   })
 );
 
-// ✅ Serve static files
+// Serve static files
 app.use(express.static('public'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
-// ✅ Nodemailer transporter (single instance)
+// Nodemailer transporter
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // Must be an App Password for Gmail
+    pass: process.env.EMAIL_PASS, // Must be Gmail App Password
   },
   pool: true,
   maxConnections: 5,
@@ -63,7 +61,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // ==============================
-// ✅ /send-query route
+// /send-query route
 // ==============================
 app.post('/send-query', async (req, res) => {
   try {
@@ -101,10 +99,8 @@ app.post('/send-query', async (req, res) => {
       `,
     };
 
-    // Send email
     await transporter.sendMail(mailOptions);
 
-    // Success response
     res.json({ success: true, message: 'Your message has been sent successfully!' });
   } catch (err) {
     console.error('❌ Error in /send-query:', err);
@@ -113,13 +109,13 @@ app.post('/send-query', async (req, res) => {
 });
 
 // ==============================
-// ✅ /send-booking route
+// /send-booking route
 // ==============================
 app.post('/send-booking', async (req, res) => {
   try {
     const { name, email, phone, destination, cab, travellers, bookingDate, message } = req.body;
 
-    // Required fields
+    // Validate required fields
     const requiredFields = ['name', 'email', 'phone', 'destination', 'cab', 'travellers', 'bookingDate'];
     const missingFields = requiredFields.filter(f => !req.body[f] || String(req.body[f]).trim() === '');
     if (missingFields.length > 0) {
@@ -155,7 +151,6 @@ app.post('/send-booking', async (req, res) => {
       `,
     };
 
-    // Send email
     await transporter.sendMail(mailOptions);
 
     res.json({ success: true, message: 'Booking request sent successfully!' });
@@ -165,9 +160,7 @@ app.post('/send-booking', async (req, res) => {
   }
 });
 
-// ==============================
-// ✅ Start server
-// ==============================
+// Start server
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });

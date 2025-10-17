@@ -218,7 +218,8 @@
             </div>
         </footer>
         
-        <script>
+        
+    <script>
 document.getElementById("queryForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -229,22 +230,20 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
   const notification = document.getElementById("notification");
   const submitButton = e.target.querySelector("button[type='submit']");
 
-  // ✅ Create loading spinner
+  // Loading spinner
   const spinner = document.createElement("div");
   spinner.classList.add("spinner-border", "spinner-border-sm", "text-light");
   spinner.setAttribute("role", "status");
   spinner.innerHTML = '<span class="visually-hidden">Loading...</span>';
 
-  // ✅ Disable button & show spinner
   submitButton.disabled = true;
   submitButton.innerHTML = "";
   submitButton.appendChild(spinner);
   submitButton.appendChild(document.createTextNode(" Sending..."));
-
   notification.style.display = "none";
 
   try {
-    // ✅ Auto-switch base URL (dev ↔ prod)
+    // Switch between dev and prod
     const baseURL =
       window.location.hostname === "localhost"
         ? "http://localhost:3000"
@@ -256,21 +255,20 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
       body: JSON.stringify({ name, email, phone, message }),
     });
 
-    // ✅ Safely parse JSON (avoid crash if response isn't valid JSON)
+    // Safe JSON parsing
     let data = {};
     try {
       data = await response.json();
-    } catch (err) {
-      console.warn("⚠️ Server did not return valid JSON:", err);
-      data = { success: false, error: "Invalid server response." };
+    } catch {
+      data = { success: false, error: "Server did not return valid JSON." };
+      console.warn("⚠️ Server did not return valid JSON.");
     }
 
-    // ✅ Show notification
     notification.style.display = "block";
     if (data.success) {
       notification.style.color = "green";
       notification.style.borderColor = "green";
-      notification.textContent = data.message || "Your message was sent!";
+      notification.textContent = data.message;
       e.target.reset();
     } else {
       notification.style.color = "red";
@@ -278,14 +276,12 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
       notification.textContent = data.error || "Something went wrong.";
     }
   } catch (error) {
-    // ✅ Catch any network/server errors
     notification.style.display = "block";
     notification.style.color = "red";
     notification.style.borderColor = "red";
     notification.textContent = "Failed to send. Please try again later.";
     console.error("Form submission error:", error);
   } finally {
-    // ✅ Re-enable button & restore text
     submitButton.disabled = false;
     submitButton.innerHTML = "Submit";
   }
