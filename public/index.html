@@ -217,7 +217,8 @@
                 </div>
             </div>
         </footer>
-<script>
+        
+        <script>
 document.getElementById("queryForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -243,7 +244,7 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
   notification.style.display = "none";
 
   try {
-    // ✅ Automatically switch between localhost and production
+    // ✅ Auto-switch base URL (dev ↔ prod)
     const baseURL =
       window.location.hostname === "localhost"
         ? "http://localhost:3000"
@@ -255,13 +256,21 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
       body: JSON.stringify({ name, email, phone, message }),
     });
 
-    const data = await response.json();
+    // ✅ Safely parse JSON (avoid crash if response isn't valid JSON)
+    let data = {};
+    try {
+      data = await response.json();
+    } catch (err) {
+      console.warn("⚠️ Server did not return valid JSON:", err);
+      data = { success: false, error: "Invalid server response." };
+    }
 
+    // ✅ Show notification
     notification.style.display = "block";
     if (data.success) {
       notification.style.color = "green";
       notification.style.borderColor = "green";
-      notification.textContent = data.message;
+      notification.textContent = data.message || "Your message was sent!";
       e.target.reset();
     } else {
       notification.style.color = "red";
@@ -269,6 +278,7 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
       notification.textContent = data.error || "Something went wrong.";
     }
   } catch (error) {
+    // ✅ Catch any network/server errors
     notification.style.display = "block";
     notification.style.color = "red";
     notification.style.borderColor = "red";
