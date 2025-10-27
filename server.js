@@ -8,12 +8,12 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// ========== MIDDLEWARE ==========
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// Security
+// Security middleware
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -48,44 +48,44 @@ app.use(
 app.use(express.static('public'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
-// Nodemailer transporter
+// ========== HEALTH CHECK ==========
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Server is alive!' });
+});
+
+// ========== NODEMAILER TRANSPORT ==========
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // Must be Gmail App Password
+    pass: process.env.EMAIL_PASS, // Gmail App Password (not normal password)
   },
-  pool: true,
-  maxConnections: 5,
-  maxMessages: 100,
 });
 
-// ==============================
-// /send-query route
-// ==============================
+// Verify transporter
+transporter.verify((err, success) => {
+  if (err) {
+    console.error('❌ Email transporter error:', err.message);
+  } else {
+    console.log('✅ Email transporter ready');
+  }
+});
+
+// ========== /send-query ==========
 app.post('/send-query', async (req, res) => {
   try {
+    console.log('📩 Received contact form:', req.body);
     const { name, email, phone, message } = req.body;
 
-    // Validate required fields
-    const requiredFields = ['name', 'email', 'phone', 'message'];
-    const missingFields = requiredFields.filter(f => !req.body[f] || req.body[f].trim() === '');
-    if (missingFields.length > 0) {
-      return res.status(400).json({ success: false, error: `Missing required fields: ${missingFields.join(', ')}` });
+    if (!name || !email || !phone || !message) {
+      return res.status(400).json({ success: false, error: 'All fields are required.' });
     }
 
-    // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ success: false, error: 'Invalid email format.' });
     }
 
-    // Limit message length
-    if (message.length > 1000) {
-      return res.status(400).json({ success: false, error: 'Message is too long (max 1000 characters).' });
-    }
-
-    // Email content
     const mailOptions = {
       from: `"Website Contact" <${process.env.EMAIL_USER}>`,
       to: process.env.RECEIVER_EMAIL || process.env.EMAIL_USER,
@@ -99,39 +99,47 @@ app.post('/send-query', async (req, res) => {
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    // Try sending mail safely
+    await transporter.sendMail(mailOptions).catch(err => {
+      console.error('❌ Mail send failed:', err.message);
+      throw new Error('Mail sending failed. Check email credentials or Gmail App Password.');
+    });
 
-    res.json({ success: true, message: 'Your message has been sent successfully!' });
+    return res.json({ success: true, message: 'Your message has been sent successfully!' });
   } catch (err) {
     console.error('❌ Error in /send-query:', err);
-    res.status(500).json({ success: false, error: err.message || 'Server error. Please try again later.' });
+    // Always respond with JSON
+    if (!res.headersSent) {
+      return res.status(500).json({
+        success: false,
+        error: 'Server error while sending email.',
+        details: err.message,
+      });
+    }
   }
 });
 
-// ==============================
-// /send-booking route
-// ==============================
+// ========== /send-booking ==========
 app.post('/send-booking', async (req, res) => {
   try {
+    console.log('🧾 Received booking:', req.body);
     const { name, email, phone, destination, cab, travellers, bookingDate, message } = req.body;
 
-    // Validate required fields
-    const requiredFields = ['name', 'email', 'phone', 'destination', 'cab', 'travellers', 'bookingDate'];
-    const missingFields = requiredFields.filter(f => !req.body[f] || String(req.body[f]).trim() === '');
-    if (missingFields.length > 0) {
-      return res.status(400).json({ success: false, error: `Missing required fields: ${missingFields.join(', ')}` });
+    if (!name || !email || !phone || !destination || !cab || !travellers || !bookingDate) {
+      return res.status(400).json({ success: false, error: 'Missing required booking fields.' });
     }
 
-    // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ success: false, error: 'Invalid email format' });
+      return res.status(400).json({ success: false, error: 'Invalid email format.' });
     }
 
-    // Format date
-    const formattedDate = new Date(bookingDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+    const formattedDate = new Date(bookingDate).toLocaleDateString('en-IN', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
 
-    // Email content
     const mailOptions = {
       from: `"DP Travels Booking" <${process.env.EMAIL_USER}>`,
       to: process.env.RECEIVER_EMAIL || process.env.EMAIL_USER,
@@ -151,16 +159,25 @@ app.post('/send-booking', async (req, res) => {
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions).catch(err => {
+      console.error('❌ Booking mail failed:', err.message);
+      throw new Error('Failed to send booking email.');
+    });
 
-    res.json({ success: true, message: 'Booking request sent successfully!' });
+    return res.json({ success: true, message: 'Booking request sent successfully!' });
   } catch (err) {
     console.error('❌ Error in /send-booking:', err);
-    res.status(500).json({ success: false, error: err.message || 'Server error. Please try again later.' });
+    if (!res.headersSent) {
+      return res.status(500).json({
+        success: false,
+        error: 'Server error while processing booking.',
+        details: err.message,
+      });
+    }
   }
 });
 
-// Start server
+// ========== START SERVER ==========
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });
