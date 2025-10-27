@@ -1,3 +1,7 @@
+// =======================
+// DP Travels Server
+// =======================
+
 const express = require('express');
 const nodemailer = require('nodemailer');
 const helmet = require('helmet');
@@ -8,24 +12,49 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ========== MIDDLEWARE ==========
+// =======================
+// MIDDLEWARE
+// =======================
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
-// Security middleware
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://www.dptravels.in', 'https://dptravels.onrender.com'],
+  methods: ['GET', 'POST'],
+}));
+
+// =======================
+// SECURITY (Helmet)
+// =======================
 app.use(
   helmet({
     contentSecurityPolicy: {
       useDefaults: true,
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com", "'unsafe-inline'"],
-        styleSrc: ["'self'", "https://cdn.jsdelivr.net", "https://fonts.googleapis.com", "'unsafe-inline'"],
+        scriptSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net",
+          "https://cdnjs.cloudflare.com",
+          "'unsafe-inline'",
+        ],
+        styleSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net",
+          "https://fonts.googleapis.com",
+          "'unsafe-inline'",
+        ],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
         imgSrc: ["'self'", "data:", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com"],
         frameSrc: ["'self'", "https://www.google.com"],
-        connectSrc: ["'self'", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com"],
+        connectSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net",
+          "https://cdnjs.cloudflare.com",
+          "https://www.dptravels.in",
+          "https://dptravels.onrender.com",
+          "http://localhost:3000",
+        ],
         objectSrc: ["'none'"],
       },
     },
@@ -34,55 +63,66 @@ app.use(
   })
 );
 
-// Rate limiting
-app.use(
-  rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-    standardHeaders: true,
-    legacyHeaders: false,
-  })
-);
+// =======================
+// RATE LIMITING
+// =======================
+app.use(rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+}));
 
-// Serve static files
+// =======================
+// STATIC & HEALTH ROUTES
+// =======================
 app.use(express.static('public'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
+app.get('/health', (req, res) => res.json({ status: 'ok', message: 'Server alive' }));
 
-// ========== HEALTH CHECK ==========
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Server is alive!' });
-});
-
-// ========== NODEMAILER TRANSPORT ==========
+// =======================
+// NODEMAILER CONFIG
+// =======================
+console.log('[INIT] Initializing Nodemailer...');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // Gmail App Password (not normal password)
+    pass: process.env.EMAIL_PASS, // Use Gmail App Password
   },
 });
 
-// Verify transporter
 transporter.verify((err, success) => {
-  if (err) {
-    console.error('❌ Email transporter error:', err.message);
-  } else {
-    console.log('✅ Email transporter ready');
-  }
+  if (err) console.error('[ERROR] Email transporter failed:', err);
+  else console.log('[SUCCESS] Email transporter ready ✅');
 });
 
-// ========== /send-query ==========
+// =======================
+// DEBUG HELPER
+// =======================
+const debugLog = (label, data) => {
+  console.log(`[DEBUG] ${label}:`, typeof data === 'object' ? JSON.stringify(data, null, 2) : data);
+};
+
+// =======================
+// /send-query
+// =======================
 app.post('/send-query', async (req, res) => {
+  console.log('\n====================');
+  console.log('[INFO] /send-query request received');
+  debugLog('Body', req.body);
+
   try {
-    console.log('📩 Received contact form:', req.body);
     const { name, email, phone, message } = req.body;
 
     if (!name || !email || !phone || !message) {
+      console.warn('[WARN] Missing required fields');
       return res.status(400).json({ success: false, error: 'All fields are required.' });
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
+      console.warn('[WARN] Invalid email format');
       return res.status(400).json({ success: false, error: 'Invalid email format.' });
     }
 
@@ -99,39 +139,39 @@ app.post('/send-query', async (req, res) => {
       `,
     };
 
-    // Try sending mail safely
-    await transporter.sendMail(mailOptions).catch(err => {
-      console.error('❌ Mail send failed:', err.message);
-      throw new Error('Mail sending failed. Check email credentials or Gmail App Password.');
-    });
+    debugLog('Mail options', mailOptions);
+    console.log('[INFO] Sending email...');
 
-    return res.json({ success: true, message: 'Your message has been sent successfully!' });
+    await transporter.sendMail(mailOptions);
+    console.log('[SUCCESS] Email sent successfully ✅');
+
+    return res.status(200).json({ success: true, message: 'Your message has been sent successfully!' });
   } catch (err) {
-    console.error('❌ Error in /send-query:', err);
-    // Always respond with JSON
+    console.error('[ERROR] /send-query failed:', err);
     if (!res.headersSent) {
       return res.status(500).json({
         success: false,
-        error: 'Server error while sending email.',
+        error: 'Failed to send email.',
         details: err.message,
       });
     }
   }
 });
 
-// ========== /send-booking ==========
+// =======================
+// /send-booking
+// =======================
 app.post('/send-booking', async (req, res) => {
+  console.log('\n====================');
+  console.log('[INFO] /send-booking request received');
+  debugLog('Body', req.body);
+
   try {
-    console.log('🧾 Received booking:', req.body);
     const { name, email, phone, destination, cab, travellers, bookingDate, message } = req.body;
 
     if (!name || !email || !phone || !destination || !cab || !travellers || !bookingDate) {
+      console.warn('[WARN] Missing booking fields');
       return res.status(400).json({ success: false, error: 'Missing required booking fields.' });
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ success: false, error: 'Invalid email format.' });
     }
 
     const formattedDate = new Date(bookingDate).toLocaleDateString('en-IN', {
@@ -159,25 +199,29 @@ app.post('/send-booking', async (req, res) => {
       `,
     };
 
-    await transporter.sendMail(mailOptions).catch(err => {
-      console.error('❌ Booking mail failed:', err.message);
-      throw new Error('Failed to send booking email.');
-    });
+    debugLog('Mail options', mailOptions);
+    console.log('[INFO] Sending booking email...');
 
-    return res.json({ success: true, message: 'Booking request sent successfully!' });
+    await transporter.sendMail(mailOptions);
+    console.log('[SUCCESS] Booking email sent ✅');
+
+    return res.status(200).json({ success: true, message: 'Booking request sent successfully!' });
   } catch (err) {
-    console.error('❌ Error in /send-booking:', err);
+    console.error('[ERROR] /send-booking failed:', err);
     if (!res.headersSent) {
       return res.status(500).json({
         success: false,
-        error: 'Server error while processing booking.',
+        error: 'Failed to send booking email.',
         details: err.message,
       });
     }
   }
 });
 
-// ========== START SERVER ==========
+// =======================
+// START SERVER
+// =======================
 app.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
+  console.log(`\n🚀 Server running on port ${PORT}`);
+  console.log('🌐 Base URL:', process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`);
 });

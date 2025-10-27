@@ -218,8 +218,7 @@
             </div>
         </footer>
         
-        
-<script>
+ <script>
 document.getElementById("queryForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -249,20 +248,27 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
         ? "http://localhost:3000"
         : "https://www.dptravels.in";
 
+    console.log("📤 Sending POST to:", `${baseURL}/send-query`);
+    console.log("🧾 Payload:", { name, email, phone, message });
+
     const response = await fetch(`${baseURL}/send-query`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, phone, message }),
     });
 
-    // Check HTTP status
+    console.log("📥 Response status:", response.status);
+    console.log("📥 Response headers:", [...response.headers.entries()]);
+
+    // Get raw text and log before parsing
+    const text = await response.text();
+    console.log("📜 Raw response text:", text);
+
     if (!response.ok) {
       throw new Error(`Server responded with status ${response.status}`);
     }
 
-    // Try to parse JSON safely
     let data;
-    const text = await response.text();
     try {
       data = JSON.parse(text);
     } catch {
@@ -270,7 +276,6 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
       data = { success: false, error: "Server did not return valid JSON." };
     }
 
-    // Show notification
     notification.style.display = "block";
     if (data.success) {
       notification.style.color = "green";
@@ -294,7 +299,6 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
   }
 });
 </script>
-
 
        
     </body>
