@@ -1,36 +1,58 @@
-console.log("Booking JS loaded"); // ✅ Script loaded
+console.log("Booking JS loaded ✅");
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM fully loaded"); // ✅ DOM ready
+  console.log("DOM fully loaded ✅");
 
   const form = document.getElementById("bookingForm");
   const notification = document.getElementById("notification");
   const destinationSelect = document.getElementById("destination");
   const cabSelect = document.getElementById("cab");
   const priceDisplay = document.getElementById("priceDisplay");
-  const dateInput = document.getElementById("bookingDate"); // Booking date input
+  const dateInput = document.getElementById("bookingDate");
 
-  // Check if elements are found
-  if (!form) console.error("❌ Form element not found!");
-  if (!dateInput) console.error("❌ Booking date input not found!");
-  if (!destinationSelect) console.error("❌ Destination select not found!");
-  if (!cabSelect) console.error("❌ Cab select not found!");
+  // Element checks
+  if (!form) return console.error("❌ Booking form not found!");
+  if (!destinationSelect) console.error("❌ Destination select missing!");
+  if (!cabSelect) console.error("❌ Cab select missing!");
+  if (!dateInput) console.error("❌ Booking date input missing!");
 
   // Restrict past dates
   const today = new Date().toISOString().split("T")[0];
-  if (dateInput) dateInput.min = today;
+  dateInput.min = today;
 
-  // Destination & Cab Data
+  // ===============================
+  // DESTINATION & CAB DATA
+  // ===============================
   const destinations = {
-    "Tsomo Lake": { desc: "A serene high-altitude lake surrounded by snow-clad mountains.", cabs: { "WagonR": 8000, "Innova": 12000 } },
-    "Namchi": { desc: "Home to the famous Char Dham and lush tea gardens.", cabs: { "WagonR": 5000, "Innova": 8000 } },
-    "Guru Dongmar Lake": { desc: "A sacred and breathtaking lake at one of the world’s highest altitudes.", cabs: { "WagonR": 20000, "Innova": 28000 } },
-    "Nathu La": { desc: "A mountain pass on the Indo-China border offering stunning views.", cabs: { "WagonR": 9000, "Innova": 15000 } },
-    "Gangtok": { desc: "The vibrant capital city of Sikkim, known for monasteries and mountain views.", cabs: { "WagonR": 8000, "Innova": 10000 } },
-    "Pelling": { desc: "Picturesque hill town with monasteries, waterfalls, and the Sky Walk.", cabs: { "WagonR": 6000, "Innova": 9000 } }
+    "Tsomo Lake": {
+      desc: "A serene high-altitude lake surrounded by snow-clad mountains.",
+      cabs: { WagonR: 8000, Innova: 12000 },
+    },
+    "Namchi": {
+      desc: "Home to the famous Char Dham and lush tea gardens.",
+      cabs: { WagonR: 5000, Innova: 8000 },
+    },
+    "Guru Dongmar Lake": {
+      desc: "A sacred and breathtaking lake at one of the world’s highest altitudes.",
+      cabs: { WagonR: 20000, Innova: 28000 },
+    },
+    "Nathu La": {
+      desc: "A mountain pass on the Indo-China border offering stunning views.",
+      cabs: { WagonR: 9000, Innova: 15000 },
+    },
+    "Gangtok": {
+      desc: "The vibrant capital city of Sikkim, known for monasteries and mountain views.",
+      cabs: { WagonR: 8000, Innova: 10000 },
+    },
+    "Pelling": {
+      desc: "Picturesque hill town with monasteries, waterfalls, and the Sky Walk.",
+      cabs: { WagonR: 6000, Innova: 9000 },
+    },
   };
 
-  // Update cab options when destination changes
+  // ===============================
+  // UPDATE CAB OPTIONS
+  // ===============================
   destinationSelect.addEventListener("change", () => {
     const selected = destinations[destinationSelect.value];
     cabSelect.innerHTML = '<option value="">-- Select Cab --</option>';
@@ -39,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
       Object.entries(selected.cabs).forEach(([cab, price]) => {
         const option = document.createElement("option");
         option.value = cab;
-        option.textContent = `${cab} - ₹${price.toLocaleString()}`;
+        option.textContent = `${cab} - ₹${price.toLocaleString("en-IN")}`;
         cabSelect.appendChild(option);
       });
       priceDisplay.innerHTML = `<strong>${selected.desc}</strong><br><span class="text-muted">Select a cab to view price.</span>`;
@@ -48,63 +70,75 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Update price when cab changes
+  // ===============================
+  // SHOW PRICE WHEN CAB SELECTED
+  // ===============================
   cabSelect.addEventListener("change", () => {
     const dest = destinations[destinationSelect.value];
     const cab = cabSelect.value;
     if (dest && cab) {
       priceDisplay.innerHTML = `
         <div><strong>${dest.desc}</strong></div>
-        <div style="margin-top:6px;">💰 <b>Price:</b> ₹${dest.cabs[cab].toLocaleString()}</div>
+        <div style="margin-top:6px;">💰 <b>Price:</b> ₹${dest.cabs[cab].toLocaleString("en-IN")}</div>
       `;
     }
   });
 
-  // Form submission
+  // ===============================
+  // FORM SUBMISSION HANDLER
+  // ===============================
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const phone = form.phone.value.trim();
-    const destination = destinationSelect.value.trim();
-    const cab = cabSelect.value.trim();
-    const travellers = form.travellers.value.trim();
-    const bookingDate = dateInput.value.trim();
-    const message = form.message.value.trim();
+    const formData = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim(),
+      destination: destinationSelect.value.trim(),
+      cab: cabSelect.value.trim(),
+      travellers: form.travellers.value.trim(),
+      bookingDate: dateInput.value.trim(),
+      message: form.message.value.trim(),
+    };
 
     // Validation
-    if (!name || !email || !phone || !destination || !cab || !travellers || !bookingDate) {
-      showNotification("⚠️ Please fill in all required fields, including booking date.", "red");
-      return;
+    if (Object.values(formData).some((v) => !v)) {
+      return showNotification("⚠️ Please fill in all required fields, including booking date.", "red");
     }
 
-    if (new Date(bookingDate) < new Date(today)) {
-      showNotification("⚠️ Please select a valid booking date (today or later).", "red");
-      return;
+    if (new Date(formData.bookingDate) < new Date(today)) {
+      return showNotification("⚠️ Please select a valid booking date (today or later).", "red");
     }
 
+    // Disable button and show spinner
     const button = form.querySelector("button[type='submit']");
     button.disabled = true;
-    button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...`;
+    const originalText = button.innerHTML;
+    button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...`;
 
     try {
       const response = await fetch("/send-booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, destination, cab, travellers, bookingDate, message })
+        body: JSON.stringify(formData),
       });
 
-      let data;
-      try {
-        data = await response.json();
-      } catch {
-        data = { success: false, error: "Server returned invalid response" };
-      }
+      const data = await response.json().catch(() => ({
+        success: false,
+        error: "Invalid JSON response from server",
+      }));
 
       if (response.ok && data.success) {
-        const formattedDate = new Date(bookingDate).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
-        showNotification(`✅ Booking confirmed for <b>${destination}</b> with <b>${cab}</b> on <b>${formattedDate}</b>!<br>We’ll contact you soon.`, "green");
+        const formattedDate = new Date(formData.bookingDate).toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
+
+        showNotification(
+          `✅ Booking confirmed for <b>${formData.destination}</b> with <b>${formData.cab}</b> on <b>${formattedDate}</b>!<br>We’ll contact you soon.`,
+          "green"
+        );
 
         form.reset();
         priceDisplay.textContent = "Please select a destination & cab";
@@ -118,11 +152,13 @@ document.addEventListener("DOMContentLoaded", () => {
       showNotification("⚠️ Server error. Please try again later.", "red");
     } finally {
       button.disabled = false;
-      button.innerHTML = "Book Now";
+      button.innerHTML = originalText;
     }
   });
 
-  // Notification helper
+  // ===============================
+  // NOTIFICATION HELPER
+  // ===============================
   function showNotification(message, color) {
     notification.style.display = "block";
     notification.style.backgroundColor = color === "green" ? "#d4edda" : "#f8d7da";
@@ -133,5 +169,15 @@ document.addEventListener("DOMContentLoaded", () => {
     notification.style.borderRadius = "8px";
     notification.style.fontWeight = "500";
     notification.innerHTML = message;
+
+    // Optional fade-out after 7 seconds
+    setTimeout(() => {
+      notification.style.transition = "opacity 0.5s ease";
+      notification.style.opacity = "0";
+      setTimeout(() => {
+        notification.style.display = "none";
+        notification.style.opacity = "1";
+      }, 500);
+    }, 7000);
   }
 });

@@ -1,308 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Destination Paradise - Travels</title>
-        <link rel="stylesheet" href="Style.css">
-        <link rel="icon" href="data:image/svg+xml,'http://www.w3.org/2000/svg' viewBox='0 0 100 100',text y='.9em' font-size='90' fill='%23C5A47E'">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <!-- Navbar -->
-        <nav>
-            <div class="container navbar">
-                <div class="logo"><img src="Images/DP Travels.jpg" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;">DP Travels</div>
-                <ul class="nav-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#packages">Packages</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Destination Paradise - DP Travels</title>
+
+    <link rel="stylesheet" href="Style.css" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23C5A47E'>✈️</text></svg>"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <div class="container navbar">
+        <div class="logo">
+          <img
+            src="Images/DP Travels.jpg"
+            alt="DP Travels Logo"
+            style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px"
+          />
+          DP Travels
+        </div>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#packages">Packages</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero text-center">
+      <div class="hero-content">
+        <h1>Discover Your Dream Vacation</h1>
+        <p>
+          Explore the world's most beautiful destinations with our expertly
+          crafted tour packages tailored to your preferences.
+        </p>
+        <a href="#packages" class="btn btn-primary">Explore Tours</a>
+      </div>
+    </section>
+
+    <!-- Tour Packages -->
+    <section id="packages" class="container">
+      <h2 class="section-title">Popular Tour Packages</h2>
+      <div class="packages-container">
+        <!-- Repeatable package cards -->
+        <div class="package-card">
+          <img src="Images/Tsomgo lake.jpg" alt="Tsomgo Lake" class="package-img" />
+          <div class="package-content">
+            <h3>Tsomgo Lake</h3>
+            <p>1 day exploring the spiritual lake, visiting all major attractions.</p>
+            <a href="booking.html" class="btn btn-primary">Book Now</a>
+          </div>
+        </div>
+
+        <div class="package-card">
+          <img src="Images/gurudongmar lake2.jpeg" alt="Gurudongmar Lake" class="package-img" />
+          <div class="package-content">
+            <h3>Gurudongmar Lake</h3>
+            <p>4 days 3 nights exploration. Enjoy the scenic beauty of the place.</p>
+            <a href="booking.html" class="btn btn-primary">Book Now</a>
+          </div>
+        </div>
+
+        <div class="package-card">
+          <img src="Images/Namchi.jpg" alt="Namchi" class="package-img" />
+          <div class="package-content">
+            <h3>Namchi Package</h3>
+            <p>1 day discovering ancient traditions and modern wonders.</p>
+            <a href="booking.html" class="btn btn-primary">Book Now</a>
+          </div>
+        </div>
+
+        <div class="package-card">
+          <img src="Images/Zuluk3.jpg" alt="Zuluk Silk Route" class="package-img" />
+          <div class="package-content">
+            <h3>Zuluk Silk Route</h3>
+            <p>1 day tour to the Silk Route and its beautiful landscapes.</p>
+            <a href="booking.html" class="btn btn-primary">Book Now</a>
+          </div>
+        </div>
+
+        <div class="package-card">
+          <img src="Images/Nathu_La_-_Indo_China_Border.jpg" alt="Nathula" class="package-img" />
+          <div class="package-content">
+            <h3>Nathula</h3>
+            <p>1 day tour to the Indo-China border, mostly covered with snow.</p>
+            <a href="booking.html" class="btn btn-primary">Book Now</a>
+          </div>
+        </div>
+
+        <div class="package-card">
+          <img src="Images/pelling screenshot.jpg" alt="Sky Walk, Pelling" class="package-img" />
+          <div class="package-content">
+            <h3>Sky Walk, Pelling</h3>
+            <p>2 days visiting all major attractions and monasteries.</p>
+            <a href="booking.html" class="btn btn-primary">Book Now</a>
+          </div>
+        </div>
+
+        <div class="package-card">
+          <img src="Images/MG Marg.jpg" alt="Gangtok Sightseeing" class="package-img" />
+          <div class="package-content">
+            <h3>Gangtok Sightseeing</h3>
+            <p>1 day in the city with stunning views and relaxation.</p>
+            <a href="booking.html" class="btn btn-primary">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="container gallery">
+      <h2 class="section-title">Travel Gallery</h2>
+      <div class="gallery-grid">
+        <img src="Images/gangtok.webp" alt="Gangtok" />
+        <img src="Images/Gurudongmar-Lake 3.jpg" alt="Gurudongmar Lake" />
+        <img src="Images/pelling screenshot.jpg" alt="Pelling" />
+        <img src="Images/Lachen Monastry.jpg" alt="Lachen Monastery" />
+        <img src="Images/Namchi.jpg" alt="Namchi" />
+        <img src="Images/Tarey-Bhir.jpg" alt="Tarey Bhir" />
+        <img src="Images/Yumthang.jpg" alt="Yumthang" />
+        <img src="Images/rabdentse-ruins.jpg" alt="Rabdentse Ruins" />
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class="section-title">Contact Us</h2>
+          <form id="queryForm">
+            <input type="text" class="form-control" id="name" placeholder="Full Name" required /><br />
+            <input type="email" class="form-control" id="email" placeholder="Email" required /><br />
+            <input type="number" class="form-control" id="phone" placeholder="Contact No" required /><br />
+            <textarea class="form-control" id="message" placeholder="Your Message" required></textarea><br />
+            <div class="text-center">
+              <button type="submit" class="btn btn-success">Submit</button>
             </div>
-        </nav>
-        
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Discover Your Dream Vacation</h1>
-                <p>Explore the world's most beautiful destinations with our expertly crafted tour packages tailored to your preferences.</p>
-                <a href="#packages" class="btn">Explore Tours</a>
-            </div>
-        </section>
+            <div
+              id="notification"
+              class="mt-3 text-center fw-semibold"
+              style="display: none; border: 2px solid #ccc; border-radius: 5px; padding: 10px; background-color: #fff;"
+            ></div>
+          </form>
+        </div>
 
-        
-        <!-- Tour Packages Section -->
-        <section id="packages" class="container">
-            <h2 class="section-title">Popular Tour Packages</h2>
-            <div class="packages-container">
-                
-                <!-- Package 1 -->
-                <div class="package-card">
-                    <img src="Images/Tsomgo lake.jpg" alt="Tsomgo Lake" class="package-img">
-                    <div class="package-content">
-                        <h3>Tsomgo Lake</h3>
-                        <p>1 day exploring the spiritual lake, visiting all major attractions.</p>
-                        <a href="booking.html" class="btn btn-primary">Book Now</a>
-                    </div>
-                </div>
-                
-                <!-- Package 2 -->
-                <div class="package-card">
-                    <img src="Images/gurudongmar lake2.jpeg" alt="Gurudongmar Lake" class="package-img">
-                    <div class="package-content">
-                        <h3>Gurudongmar Lake</h3>
-                        <p>4 days 3 nights exploration. Enjoy the scenic beauty of the place.</p>
-                        <a href="booking.html" class="btn btn-primary">Book Now</a>
-                    </div>
-                </div>
-                
-                <!-- Package 3 -->
-                <div class="package-card">
-                    <img src="Images/Namchi.jpg" alt="Namchi Package" class="package-img">
-                    <div class="package-content">
-                        <h3>Namchi Package</h3>
-                        <p>1 day discovering ancient traditions and modern wonders.</p>
-                        <a href="booking.html" class="btn btn-primary">Book Now</a>
-                    </div>
-                </div>
-                
-                <!-- Package 4 -->
-                <div class="package-card">
-                    <img src="Images/Zuluk3.jpg" alt="Silk Route" class="package-img">
-                    <div class="package-content">
-                        <h3>Zuluk Silk Route</h3>
-                        <p>1 day tour to Lake. Visiting the major tourist destinations.</p>
-                        <a href="booking.html" class="btn btn-primary">Book Now</a>
-                    </div>
-                </div>
-                <!-- Package 5 -->
-                <div class="package-card">
-                    <img src="Images/Nathu_La_-_Indo_China_Border.jpg" alt="Nathula" class="package-img">
-                    <div class="package-content">
-                        <h3>Nathula</h3>
-                        <p>1 day tour to the China Border, mostly covered with snow.</p>
-                        <a href="booking.html" class="btn btn-primary">Book Now</a>
-                    </div>
-                </div>
-                
-                <!-- Package 6 -->
-                <div class="package-card">
-                    <img src="Images/pelling screenshot.jpg" alt="Sky Wlk" class="package-img">
-                    <div class="package-content">
-                        <h3>Sky Walk, Pelling</h3>
-                        <p>2 days, visiting all major tourist attractions.</p>
-                        <a href="booking.html" class="btn btn-primary">Book Now</a>
-                    </div>
-                </div>
+        <div class="col-md-6">
+          <h2 class="section-title">Map</h2>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56706.18135408097!2d88.57927513322589!3d27.340205902048996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e6a56a5805eafb%3A0x73d6132c501c8f20!2sGangtok%2C%20Sikkim!5e0!3m2!1sen!2sin!4v1751534551294!5m2!1sen!2sin"
+            width="100%"
+            height="300"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+    </section>
 
-                <!-- Package 7 -->
-                <div class="package-card">
-                    <img src="Images/MG Marg.jpg" alt="Sky Wlk" class="package-img">
-                    <div class="package-content">
-                        <h3>Gangtok Sightseeing</h3>
-                        <p>1 day in the city with stunning views and relaxing in nature.</p>
-                        <a href="booking.html" class="btn btn-primary">Book Now</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Gallery Section -->
-        <section id="gallery" class="container gallery">
-            <h2 class="section-title">Travel Gallery</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="Images/gangtok.webp" alt="Travel Image 1">
-                </div>
-                <div class="gallery-item">
-                    <img src="Images/Gurudongmar-Lake 3.jpg" alt="Travel Image 2">
-                </div>
-                <div class="gallery-item">
-                    <img src="Images/pelling screenshot.jpg" alt="Travel Image 3">
-                </div>
-                <div class="gallery-item">
-                    <img src="Images/Lachen Monastry.jpg" alt="Travel Image 4">
-                </div>
-                <div class="gallery-item">
-                    <img src="Images/Namchi.jpg" alt="Travel Image 5">
-                </div>
-                <div class="gallery-item">
-                    <img src="Images/Tarey-Bhir.jpg" alt="Travel Image 6">
-                </div>
-                <div class="gallery-item">
-                    <img src="Images/Yumthang.jpg" alt="Travel Image 7">
-                </div>
-                <div class="gallery-item">
-                    <img src="Images/rabdentse-ruins.jpg" alt="Travel Image 8">
-                </div>
-            </div>
-        </section>
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>DP Travels</h3>
+            <p>Making your travel dreams come true since 2025. We create unforgettable experiences across Sikkim.</p>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#packages">Tour Packages</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+              <li><a href="#">Special Offers</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Terms & Conditions</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Customer Support</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+              <li><a href="mailto:destinationparadise025@gmail.com">destinationparadise025@gmail.com</a></li>
+              <li><a href="tel:+918348945765">+91 8348945765</a></li>
+              <li>New Market, Pakyong</li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 DP Travels (Destination Paradise). All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+<!-- Contact Form Script -->
+<script>
+  document.getElementById("queryForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-        <!--Contact Form & Map Section-->
-        <section id="contact" class="container">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2 class="section-title">Contact Us</h2>
-                        <div class="Form-sty">
-                            <div class="form-Div">
-                                <form id="queryForm">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="full name " required><br>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="email " required><br>
-                                    <input type="number" class="form-control" id="phone" name="phone" placeholder="Contact No" required><br>
-                                    <textarea type="text" class="form-control" id="message" name="message" placeholder="Your Message" required></textarea><br>
-                                    <div class="Div-button">
-                                        <button type="submit" class="btn btn-success">Submit</button>
-                                    </div>
-                                    <!-- Notification Box -->
-                                    <div id="notification" class="mt-3 text-center fw-semibold" style="display: none; border: 2px solid #ccc; border-radius: 5px; padding: 10px; width: 100%; max-width: 300px; margin: 15px auto 0; background-color: #fff;">
-                                    </div>
-                                </form>
-                            </div>
-                        </div> 
-                    </div> 
+    // ✅ Declare all elements first
+    const nameEl = document.getElementById("name");
+    const emailEl = document.getElementById("email");
+    const phoneEl = document.getElementById("phone");
+    const messageEl = document.getElementById("message");
+    const notification = document.getElementById("notification");
+    const submitButton = e.target.querySelector("button[type='submit']");
 
-                    <div class="col-md-6">
-                      <h2 class="section-title">Map</h2>
-                      <div class="Map-div">
-                            <div class="map-inn">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56706.18135408097!2d88.57927513322589!3d27.340205902048996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e6a56a5805eafb%3A0x73d6132c501c8f20!2sGangtok%2C%20Sikkim!5e0!3m2!1sen!2sin!4v1751534551294!5m2!1sen!2sin" width="490" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Footer -->
-        <footer>
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-column">
-                        <h3>DP Travel</h3>
-                        <p>Making your travel dreams come true since 2025. We specialize in creating unforgettable experiences around Sikkim.</p>
-                    </div>
-                    <div class="footer-column">
-                        <h3>Quick Links</h3>
-                        <ul class="footer-links">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#packages">Tour Packages</a></li>
-                            <li><a href="#gallery">Gallery</a></li>
-                            <li><a href="#">Special Offers</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h3>Support</h3>
-                        <ul class="footer-links">
-                            <li><a href="#">0.Qs</a></li>
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#"> Support</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h3>Contact Us</h3>
-                        <ul class="footer-links">
-                            <li><a href="#">destinationparadise025@gmail.com</a></li>
-                            <li><a href="tel:+918348945765">8348945765</a></li>
-                            <li><a href="#">New Market, Pakyong</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2025 DP Travels(Destination Paradise). All rights reserved.</p>
-                </div>
-            </div>
-        </footer>
-        
- <script>
-document.getElementById("queryForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+    // ✅ Then use their values
+    const name = nameEl.value.trim();
+    const email = emailEl.value.trim();
+    const phone = phoneEl.value.trim();
+    const message = messageEl.value.trim();
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const message = document.getElementById("message").value.trim();
-  const notification = document.getElementById("notification");
-  const submitButton = e.target.querySelector("button[type='submit']");
+    submitButton.disabled = true;
+    submitButton.innerHTML =
+      '<div class="spinner-border spinner-border-sm me-2" role="status"></div>Sending...';
+    notification.style.display = "none";
 
-  // Loading spinner
-  const spinner = document.createElement("div");
-  spinner.classList.add("spinner-border", "spinner-border-sm", "text-light");
-  spinner.setAttribute("role", "status");
-  spinner.innerHTML = '<span class="visually-hidden">Loading...</span>';
-
-  submitButton.disabled = true;
-  submitButton.innerHTML = "";
-  submitButton.appendChild(spinner);
-  submitButton.appendChild(document.createTextNode(" Sending..."));
-  notification.style.display = "none";
-
-  try {
-    // Auto-switch base URL
-    const baseURL =
-      window.location.hostname === "localhost"
-        ? "http://localhost:3000"
-        : "https://www.dptravels.in";
-
-    console.log("📤 Sending POST to:", `${baseURL}/send-query`);
-    console.log("🧾 Payload:", { name, email, phone, message });
-
-    const response = await fetch(`${baseURL}/send-query`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, phone, message }),
-    });
-
-    console.log("📥 Response status:", response.status);
-    console.log("📥 Response headers:", [...response.headers.entries()]);
-
-    // Get raw text and log before parsing
-    const text = await response.text();
-    console.log("📜 Raw response text:", text);
-
-    if (!response.ok) {
-      throw new Error(`Server responded with status ${response.status}`);
-    }
-
-    let data;
     try {
-      data = JSON.parse(text);
-    } catch {
-      console.warn("⚠️ Invalid JSON response from server:", text);
-      data = { success: false, error: "Server did not return valid JSON." };
-    }
+      const baseURL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:3000"
+          : "https://www.dptravels.in";
 
-    notification.style.display = "block";
-    if (data.success) {
-      notification.style.color = "green";
-      notification.style.borderColor = "green";
-      notification.textContent = data.message || "Message sent successfully!";
-      e.target.reset();
-    } else {
+      const response = await fetch(`${baseURL}/send-query`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
+
+      const text = await response.text();
+      console.log("📜 Raw response:", text);
+
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        data = { success: false, error: "Invalid JSON response from server." };
+      }
+
+      notification.style.display = "block";
+      notification.style.color = data.success ? "green" : "red";
+      notification.style.borderColor = data.success ? "green" : "red";
+      notification.textContent = data.message || data.error;
+
+      if (data.success) e.target.reset();
+    } catch (err) {
+      console.error("❌ Form submission error:", err);
+      notification.style.display = "block";
       notification.style.color = "red";
       notification.style.borderColor = "red";
-      notification.textContent = data.error || "Something went wrong on the server.";
+      notification.textContent = "Failed to send message. Please try again later.";
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "Submit";
     }
-  } catch (error) {
-    notification.style.display = "block";
-    notification.style.color = "red";
-    notification.style.borderColor = "red";
-    notification.textContent = "Failed to send. Please try again later.";
-    console.error("❌ Form submission error:", error);
-  } finally {
-    submitButton.disabled = false;
-    submitButton.innerHTML = "Submit";
-  }
-});
+  });
 </script>
 
-       
-    </body>
+  </body>
 </html>
-
-
-
