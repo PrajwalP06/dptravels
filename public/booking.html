@@ -298,6 +298,11 @@
           priceDisplay.textContent = "Please select a destination & cab";
           cabSelect.innerHTML = '<option value="">-- Select Cab --</option>';
           bookingDateInput.min = today;
+           // Redirect after a short delay (e.g., 2 seconds)
+  setTimeout(() => {
+    window.location.href = "thankyou.html";
+  }, 2000);
+          
         } else {
           notification.textContent = "❌ " + (result.error || "Failed to send booking.");
           notification.style.color = "red";

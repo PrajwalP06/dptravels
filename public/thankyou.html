@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You - Destination Paradise</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #f7f2ec, #fff);
+        font-family: "Poppins", sans-serif;
+        color: #333;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .thankyou-container {
+        text-align: center;
+        background: #fff;
+        padding: 50px 40px;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        animation: fadeIn 1s ease;
+      }
+
+      .thankyou-icon {
+        font-size: 80px;
+        color: #c5a47e;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-weight: 600;
+        color: #2e2e2e;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 20px;
+      }
+
+      #countdown {
+        font-size: 1.2rem;
+        color: #c5a47e;
+        font-weight: 600;
+        margin-bottom: 30px;
+      }
+
+      .btn-home {
+        background-color: #c5a47e;
+        color: white;
+        padding: 10px 30px;
+        border-radius: 50px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .btn-home:hover {
+        background-color: #b3916a;
+        color: #fff;
+        transform: scale(1.05);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="thankyou-container">
+      <div class="thankyou-icon">✅</div>
+      <h1>Thank You!</h1>
+      <p>Your booking request has been received.</p>
+      <div id="countdown">Redirecting in 10 seconds...</div>
+      <a href="index.html" class="btn btn-home">Return to Home</a>
+    </div>
+
+    <script>
+      let seconds = 10;
+      const countdown = document.getElementById("countdown");
+
+      const timer = setInterval(() => {
+        seconds--;
+        countdown.textContent = `Redirecting in ${seconds} second${seconds !== 1 ? "s" : ""}...`;
+        if (seconds <= 0) {
+          clearInterval(timer);
+          window.location.href = "index.html";
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
