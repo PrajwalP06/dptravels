@@ -150,21 +150,44 @@ app.post("/send-booking", async (req, res) => {
       from: `DP Travels <${SENDER_EMAIL}>`,
       to: RECEIVER_EMAIL,
       subject: `🧳 New Booking Request from ${name}`,
-      html: `
-        <h3>New Booking Request</h3>
-        <ul>
-          <li><b>Name:</b> ${name}</li>
-          <li><b>Email:</b> ${email}</li>
-          <li><b>Phone:</b> ${phone}</li>
-          <li><b>Destination:</b> ${destination}</li>
-          <li><b>Cab:</b> ${cab}</li>
-          <li><b>Travellers:</b> ${travellers}</li>
-          <li><b>Booking Date:</b> ${formattedDate}</li>
-          ${message ? `<li><b>Message:</b> ${message}</li>` : ""}
-        </ul>
-        <hr>
-        <p style="font-size:12px;color:#555;">Sent automatically from DP Travels website.</p>
-      `,
+      html: `      <!-- Header -->
+      
+
+      <!-- Body -->
+      <div style="padding:30px;">
+        <p style="font-size:16px; color:#333;">You’ve received a new booking request from <b>${name}</b>.</p>
+
+        <table style="width:100%; border-collapse:collapse; margin-top:15px;">
+          <tbody>
+            <tr><td style="padding:8px 0; color:#555;"><b>Name:</b></td><td style="padding:8px 0; color:#111;">${name}</td></tr>
+            <tr><td style="padding:8px 0; color:#555;"><b>Email:</b></td><td style="padding:8px 0; color:#111;">${email}</td></tr>
+            <tr><td style="padding:8px 0; color:#555;"><b>Phone:</b></td><td style="padding:8px 0; color:#111;">${phone}</td></tr>
+            <tr><td style="padding:8px 0; color:#555;"><b>Destination:</b></td><td style="padding:8px 0; color:#111;">${destination}</td></tr>
+            <tr><td style="padding:8px 0; color:#555;"><b>Cab:</b></td><td style="padding:8px 0; color:#111;">${cab}</td></tr>
+            <tr><td style="padding:8px 0; color:#555;"><b>Travellers:</b></td><td style="padding:8px 0; color:#111;">${travellers}</td></tr>
+            <tr><td style="padding:8px 0; color:#555;"><b>Booking Date:</b></td><td style="padding:8px 0; color:#111;">${formattedDate}</td></tr>
+            ${
+              message
+                ? `<tr><td style="padding:8px 0; color:#555; vertical-align:top;"><b>Message:</b></td><td style="padding:8px 0; color:#111;">${message}</td></tr>`
+                : ""
+            }
+          </tbody>
+        </table>
+
+        <div style="margin-top:30px; text-align:center;">
+          <a href="mailto:${email}" style="display:inline-block; background-color:#00695c; color:#fff; text-decoration:none; padding:10px 20px; border-radius:6px; font-weight:500;">Reply to Customer</a>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div style="background-color:#f1f1f1; padding:15px 30px; text-align:center; font-size:13px; color:#777;">
+        <p style="margin:0;">Sent automatically from <b>DP Travels</b></p>
+        <p style="margin:4px 0 0;">www.dptravels.in</p>
+      </div>
+    </div>
+  </div>
+`,
+
     });
 
     console.log("[SUCCESS] Booking email sent ✅");
