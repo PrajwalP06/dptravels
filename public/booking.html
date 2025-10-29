@@ -12,19 +12,41 @@
   type="image/svg+xml"
   href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='90%' font-size='80' font-family='Arial, sans-serif' text-anchor='middle' fill='%23C5A47E' font-weight='bold'>DP</text></svg>"
 />
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, #d9eefe 0%, #f9fcff 100%);
-      min-height: 100vh;
-      margin: 0;
-      overflow-y: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-      position: relative;
-    }
+  <style>body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg, #d9eefe 0%, #f9fcff 100%);
+  min-height: 100vh;
+  margin: 0;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+}
+
+/* 🌄 semi-transparent background image layer */
+body::before {
+  content: "";
+  position: fixed; /* keeps image steady while scrolling */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/public/Images/Zuluk.jpg") center/cover no-repeat; /* ✅ correct relative path */
+  opacity: 100%; /* controls transparency — increase/decrease as needed */
+  z-index: -1; /* ensures it stays behind everything */
+  animation: bgFloat 25s ease-in-out infinite alternate;
+  filter: brightness(1.05) saturate(1.1); /* subtle enhancement */
+}
+
+/* ☁️ gentle movement animation */
+@keyframes bgFloat {
+  0% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.05) translateY(-10px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
 
     /* --- Decorative Background Layers --- */
     body::before, body::after {
@@ -148,6 +170,36 @@
       margin-top: 12px;
       text-align: center;
       font-weight: 500;
+    }
+.card {
+      position: relative;
+      width: 350px;
+      padding: 20px;
+      border-radius: 15px;
+      overflow: hidden;
+      color: white; /* Keeps foreground visible */
+      font-family: Arial, sans-serif;
+    }
+
+    body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/Images/Zuluk.jpg") center/cover no-repeat;
+  opacity: 0.75;
+  z-index: -1;
+  animation: bgFloat 25s ease-in-out infinite alternate;
+  filter: brightness(1.05) saturate(1.1);
+}
+
+
+    /* Foreground content */
+    .card-content {
+      position: relative;
+      z-index: 1; /* ensures it’s above the background */
     }
   </style>
 </head>
