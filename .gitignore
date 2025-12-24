@@ -39,3 +39,5 @@ jspm_packages/
 *.tmp
 *.temp
 *.bak
+
+token.js.env

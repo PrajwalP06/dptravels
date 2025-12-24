@@ -1,12 +1,12 @@
 // =======================
-// DP Travels Server (Enhanced Resend API Version)
+// DP Travels Server (Nodemailer Gmail SMTP Version)
 // =======================
 
 const express = require("express");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cors = require("cors");
-const { Resend } = require("resend");
+const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 const app = express();
@@ -61,23 +61,38 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/public/index.html"));
 app.get("/health", (req, res) => res.json({ status: "ok", uptime: process.uptime() }));
 
 // =======================
-// RESEND CONFIG
+// NODEMAILER (Gmail OAuth2) CONFIG
 // =======================
-if (!process.env.RESEND_API_KEY) {
-  console.warn("⚠️ Missing RESEND_API_KEY in environment variables!");
+const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS;
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
+
+if (!EMAIL_ADDRESS || !CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
+  console.warn("⚠️ Missing Gmail OAuth2 credentials (EMAIL_ADDRESS, CLIENT_ID, etc.) in environment variables!");
 }
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const SENDER_EMAIL = process.env.SENDER_EMAIL || "noreply@dptravels.in";
-const RECEIVER_EMAIL = process.env.RECEIVER_EMAIL || SENDER_EMAIL;
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    type: "OAuth2",
+    user: EMAIL_ADDRESS,
+    clientId: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    refreshToken: REFRESH_TOKEN,
+  },
+});
+
+// Send to yourself by default
+const RECEIVER_EMAIL = process.env.RECEIVER_EMAIL || EMAIL_ADDRESS;
 
 // =======================
 // Helper - Send Email (with retry)
 // =======================
-async function sendEmailWithRetry(emailData, retries = 2) {
+async function sendEmailWithRetry(mailOptions, retries = 2) {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      await resend.emails.send(emailData);
+      await transporter.sendMail(mailOptions);
       return true;
     } catch (err) {
       console.error(`[ERROR] Attempt ${attempt} failed:`, err.message);
@@ -104,7 +119,7 @@ app.post("/send-query", async (req, res) => {
 
   try {
     await sendEmailWithRetry({
-      from: `DP Travels <${SENDER_EMAIL}>`,
+      from: `DP Travels <${EMAIL_ADDRESS}>`,
       to: RECEIVER_EMAIL,
       subject: "📩 New Contact Form Query",
       html: `
@@ -147,13 +162,10 @@ app.post("/send-booking", async (req, res) => {
 
   try {
     await sendEmailWithRetry({
-      from: `DP Travels <${SENDER_EMAIL}>`,
+      from: `DP Travels <${EMAIL_ADDRESS}>`,
       to: RECEIVER_EMAIL,
       subject: `🧳 New Booking Request from ${name}`,
-      html: `      <!-- Header -->
-      
-
-      <!-- Body -->
+      html: `
       <div style="padding:30px;">
         <p style="font-size:16px; color:#333;">You’ve received a new booking request from <b>${name}</b>.</p>
 
@@ -166,28 +178,24 @@ app.post("/send-booking", async (req, res) => {
             <tr><td style="padding:8px 0; color:#555;"><b>Cab:</b></td><td style="padding:8px 0; color:#111;">${cab}</td></tr>
             <tr><td style="padding:8px 0; color:#555;"><b>Travellers:</b></td><td style="padding:8px 0; color:#111;">${travellers}</td></tr>
             <tr><td style="padding:8px 0; color:#555;"><b>Booking Date:</b></td><td style="padding:8px 0; color:#111;">${formattedDate}</td></tr>
-            ${
-              message
-                ? `<tr><td style="padding:8px 0; color:#555; vertical-align:top;"><b>Message:</b></td><td style="padding:8px 0; color:#111;">${message}</td></tr>`
-                : ""
-            }
+            ${message
+          ? `<tr><td style="padding:8px 0; color:#555; vertical-align:top;"><b>Message:</b></td><td style="padding:8px 0; color:#111;">${message}</td></tr>`
+          : ""
+        }
           </tbody>
         </table>
 
         <div style="margin-top:30px; text-align:center;">
-          <a href="mailto:${email}" style="display:inline-block; background-color:#00695c; color:#fff; text-decoration:none; padding:10px 20px; border-radius:6px; font-weight:500;">Reply to Customer</a>
+          <a href="mailto:${email}" style="display:inline-block; background-color:#2dd4bf; color:#0f172a; text-decoration:none; padding:10px 20px; border-radius:6px; font-weight:600;">Reply to Customer</a>
         </div>
       </div>
 
       <!-- Footer -->
-      <div style="background-color:#f1f1f1; padding:15px 30px; text-align:center; font-size:13px; color:#777;">
+      <div style="background-color:#f8fafc; padding:15px 30px; text-align:center; font-size:13px; color:#64748b; border-top: 1px solid #e2e8f0;">
         <p style="margin:0;">Sent automatically from <b>DP Travels</b></p>
         <p style="margin:4px 0 0;">www.dptravels.in</p>
       </div>
-    </div>
-  </div>
 `,
-
     });
 
     console.log("[SUCCESS] Booking email sent ✅");
@@ -211,6 +219,6 @@ app.use((err, req, res, next) => {
 // =======================
 // START SERVER
 // =======================
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 DP Travels server running on port ${PORT}`);
 });

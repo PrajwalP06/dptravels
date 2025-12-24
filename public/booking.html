@@ -1,289 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DP Travels | Booking</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  
-    <link
-  rel="icon"
-  type="image/svg+xml"
-  href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='90%' font-size='80' font-family='Arial, sans-serif' text-anchor='middle' fill='%23C5A47E' font-weight='bold'>DP</text></svg>"
-/>
-  <style>body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(180deg, #d9eefe 0%, #f9fcff 100%);
-  min-height: 100vh;
-  margin: 0;
-  overflow-y: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  position: relative;
-}
+  <title>DP Travels | Beyond Extraordinary Sikkim Journeys</title>
 
-/* 🌄 semi-transparent background image layer */
-body::before {
-  content: "";
-  position: fixed; /* keeps image steady while scrolling */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("/public/Images/Zuluk.jpg") center/cover no-repeat; /* ✅ correct relative path */
-  opacity: 100%; /* controls transparency — increase/decrease as needed */
-  z-index: -1; /* ensures it stays behind everything */
-  animation: bgFloat 25s ease-in-out infinite alternate;
-  filter: brightness(1.05) saturate(1.1); /* subtle enhancement */
-}
+  <link rel="stylesheet" href="Style.css" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='90%' font-size='80' font-family='Arial, sans-serif' text-anchor='middle' fill='%232dd4bf' font-weight='bold'>DP</text></svg>" />
 
-/* ☁️ gentle movement animation */
-@keyframes bgFloat {
-  0% { transform: scale(1) translateY(0); }
-  50% { transform: scale(1.05) translateY(-10px); }
-  100% { transform: scale(1) translateY(0); }
-}
-
-
-    /* --- Decorative Background Layers --- */
-    body::before, body::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* Mountain silhouettes */
-    body::before {
-      bottom: 0;
-      height: 35vh;
-      background: linear-gradient(180deg, rgba(125,170,212,0.15), rgba(13,71,161,0.05)),
-        radial-gradient(circle at 30% 80%, rgba(70,130,180,0.25) 0%, transparent 60%),
-        radial-gradient(circle at 70% 85%, rgba(100,149,237,0.25) 0%, transparent 60%);
-      clip-path: polygon(0 60%, 20% 50%, 40% 70%, 60% 55%, 80% 75%, 100% 60%, 100% 100%, 0 100%);
-    }
-
-    /* Airplane path silhouette */
-    body::after {
-      top: 60px;
-      height: 180px;
-      background: url("data:image/svg+xml,%3Csvg width='400' height='150' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 80 Q150 10 300 70 T390 60' fill='none' stroke='%23a0c4ff' stroke-width='2' stroke-dasharray='5,5'/%3E%3Cpath d='M380 50 L390 60 L380 70 L395 60 Z' fill='%230d47a1'/%3E%3C/svg%3E") no-repeat center/contain;
-      opacity: 0.4;
-    }
-
-    .booking-card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      padding: 40px 35px;
-      max-width: 650px;
-      width: 100%;
-      z-index: 1;
-      position: relative;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(15px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    h2 {
-      font-weight: 600;
-      color: #0d47a1;
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-
-    nav .logo {
-      display: flex;
-      align-items: center;
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #0d47a1;
-    }
-
-    nav img {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #0d47a1;
-      font-weight: 500;
-    }
-
-    .form-control, .form-select {
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      padding: 10px 14px;
-      transition: all 0.2s ease;
-    }
-
-    .form-control:focus, .form-select:focus {
-      border-color: #0d6efd;
-      box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.15);
-    }
-
-    .price-box {
-      background: #f6f8fb;
-      border: 1px solid #dce1e6;
-      border-radius: 12px;
-      padding: 14px;
-      text-align: center;
-      font-size: 1rem;
-      color: #222;
-      font-weight: 500;
-      margin-top: 10px;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #0d47a1, #1976d2);
-      border: none;
-      border-radius: 12px;
-      padding: 12px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-      background: linear-gradient(135deg, #1565c0, #2196f3);
-      transform: translateY(-2px);
-    }
-
-    #notification {
-      font-size: 0.95rem;
-      margin-top: 12px;
-      text-align: center;
-      font-weight: 500;
-    }
-.card {
-      position: relative;
-      width: 350px;
-      padding: 20px;
-      border-radius: 15px;
-      overflow: hidden;
-      color: white; /* Keeps foreground visible */
-      font-family: Arial, sans-serif;
-    }
-
-    body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("/Images/Zuluk.jpg") center/cover no-repeat;
-  opacity: 0.75;
-  z-index: -1;
-  animation: bgFloat 25s ease-in-out infinite alternate;
-  filter: brightness(1.05) saturate(1.1);
-}
-
-
-    /* Foreground content */
-    .card-content {
-      position: relative;
-      z-index: 1; /* ensures it’s above the background */
-    }
-  </style>
+  <!-- Bootstrap Grid for layout -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-grid.min.css" rel="stylesheet" />
 </head>
-<body>
-  <div class="booking-card">
-    <nav class="d-flex justify-content-between align-items-center mb-3">
-      <div class="logo">
-        <img src="Images/DP Travels.jpg" alt="DP Travels Logo">
-        DP Travels
+
+<body class="booking-page">
+  <!-- Navbar Integration -->
+  <nav id="mainNav" class="scrolled">
+    <div class="container navbar">
+      <a href="index.html" class="logo">
+        <img src="Images/DP Travels.jpg" alt="DP Travels Logo" />
+        DP TRAVELS
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#packages">DESTINATIONS</a></li>
+        <li><a href="index.html#gallery">GALLERY</a></li>
+        <li><a href="index.html#contact">CONTACT</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container" style="padding-top: 140px; padding-bottom: 80px;">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-7">
+        <!-- Brand Header -->
+        <div class="text-center mb-5 reveal active">
+          <h1 class="display-3 fw-bold mb-3" style="letter-spacing: -2px;">Begin Your Journey</h1>
+          <p class="text-muted fs-5">Fill in your details for a bespoke Himalayan itinerary.</p>
+        </div>
+
+        <!-- Sleek Form Card -->
+        <div class="booking-container reveal active">
+          <div class="booking-form-wrapper p-5">
+            <form id="bookingForm">
+              <div class="row">
+                <div class="col-12 form-group">
+                  <label class="form-label">Voyager Name</label>
+                  <input type="text" class="form-control" name="name" placeholder="Full Name" required />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" name="email" placeholder="email@address.com" required />
+                </div>
+                <div class="col-md-6 form-group">
+                  <label class="form-label">Phone</label>
+                  <input type="tel" class="form-control" name="phone" placeholder="+91" required />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label class="form-label">Destination Odyssey</label>
+                  <select class="form-control" id="destination" required>
+                    <option value="">-- Choose your destination --</option>
+                    <option value="Tsomo Lake">Sacred Tsomgo Lake</option>
+                    <option value="Namchi">Namchi Spiritual Hub</option>
+                    <option value="Guru Dongmar Lake">Guru Dongmar Odyssey</option>
+                    <option value="Yumthang Valley">Yumthang Valley (North)</option>
+                    <option value="Nathang Valley">Nathang Valley (East)</option>
+                    <option value="Barsey Rhododendron">Barsey Sanctuary (West)</option>
+                    <option value="Ravangla Buddha Park">Ravangla Buddha Park (South)</option>
+                    <option value="Solophok Chardham">Solophok Chardham (Namchi)</option>
+                    <option value="Samdruptse Hill">Samdruptse Hill (Namchi)</option>
+                    <option value="Tarey Bhir">Tarey Bhir (Namchi)</option>
+                    <option value="Goechala Pass Trek">Goechala Pass Trek (Trekking)</option>
+                    <option value="Nathu La">Nathu La Border Pass</option>
+                    <option value="Zuluk">Zuluk Silk Route</option>
+                    <option value="Gangtok">Gangtok City Discovery</option>
+                    <option value="Pelling">Pelling Sky Walk</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label class="form-label">Excursion Vehicle</label>
+                  <select class="form-control" id="cab" required disabled>
+                    <option value="">Awaiting destination selection...</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="priceDisplay" class="price-box mb-4">
+                Personalized pricing will appear here.
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label class="form-label">Travellers</label>
+                  <input type="number" class="form-control" name="travellers" min="1" value="1" required />
+                </div>
+                <div class="col-md-6 form-group">
+                  <label class="form-label">Preferred Date</label>
+                  <input type="date" class="form-control" id="bookingDate" name="bookingDate" required />
+                </div>
+              </div>
+
+              <div class="form-group mb-5">
+                <label class="form-label">Visions & Requests</label>
+                <textarea class="form-control" name="message" rows="3"
+                  placeholder="Any special needs for your journey?"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold"
+                style="border-radius: 20px;">Confirm Booking</button>
+
+              <div id="notification" class="mt-4 text-center fw-bold p-3" style="display: none; border-radius: 20px;">
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="text-center mt-5">
+          <p class="text-muted small">By initiating, you agree to our <a href="privacy.html"
+              style="color: var(--accent); text-decoration: none;">premium service protocols</a>.</p>
+        </div>
       </div>
-      <ul><li><a href="index.html">Home</a></li></ul>
-    </nav>
-
-    <h2>Book Your Tour</h2>
-    <p class="text-center text-muted mb-4">Choose your destination and cab type to get instant pricing.</p>
-
-    <form id="bookingForm">
-      <div class="mb-3">
-        <label for="name" class="form-label">Full Name</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="your@email.com" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="phone" class="form-label">Phone</label>
-        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Contact Number" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="destination" class="form-label">Destination</label>
-        <select class="form-select" id="destination" required>
-          <option value="">-- Select Destination --</option>
-          <option value="Tsomo Lake">Tsomo Lake</option>
-          <option value="Namchi">Namchi</option>
-          <option value="Guru Dongmar Lake">Guru Dongmar Lake</option>
-          <option value="Nathu La">Nathu La</option>
-          <option value="Zuluk">Zuluk</option>
-          <option value="Gangtok">Gangtok</option>
-          <option value="Pelling">Pelling</option>
-        </select>
-      </div>
-
-      <div class="mb-3">
-        <label for="cab" class="form-label">Cab Type</label>
-        <select class="form-select" id="cab" required>
-          <option value="">-- Select Cab --</option>
-        </select>
-      </div>
-
-      <div id="priceDisplay" class="price-box">Please select a destination & cab</div>
-
-      <div class="mb-3 mt-4">
-        <label for="travellers" class="form-label">Number of Travellers</label>
-        <input type="number" class="form-control" id="travellers" name="travellers" min="1" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="bookingDate" class="form-label">Booking Date</label>
-        <input type="date" class="form-control" id="bookingDate" name="bookingDate" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="message" class="form-label">Additional Notes (Optional)</label>
-        <textarea class="form-control" id="message" name="message" rows="3"></textarea>
-      </div>
-
-      <button type="submit" class="btn btn-primary w-100">Book Now</button>
-      <div id="notification"></div>
-    </form>
+    </div>
   </div>
 
   <script>
     const destinations = {
-      "Tsomo Lake": { desc: "A serene high-altitude lake surrounded by snow-clad mountains.", cabs: { "WagonR": 8000, "Innova": 12000 } },
-      "Namchi": { desc: "Home to the famous Char Dham and lush tea gardens.", cabs: { "WagonR": 5000, "Innova": 8000 } },
-      "Guru Dongmar Lake": { desc: "A sacred and breathtaking lake at one of the world’s highest altitudes.", cabs: { "WagonR": 20000, "Innova": 28000 } },
-      "Zuluk": { desc: "The famous Silk Route, beautiful landscapes.", cabs: { "WagonR": 9000, "Innova": 15000 } },
-      "Nathu La": { desc: "A mountain pass on the Indo-China border offering stunning views.", cabs: { "WagonR": 9000, "Innova": 15000 } },
-      "Gangtok": { desc: "The vibrant capital city of Sikkim, known for monasteries and mountain views.", cabs: { "WagonR": 8000, "Innova": 10000 } },
-      "Pelling": { desc: "Picturesque hill town with monasteries, waterfalls, and the Sky Walk.", cabs: { "WagonR": 6000, "Innova": 9000 } }
+      "Tsomo Lake": { desc: "Access the sacred glacial mirror at 12,400 ft.", cabs: { "Elite SUV (Innova)": 12000, "Executive Sedan": 8000 } },
+      "Namchi": { desc: "Spiritual immersion in the heart of South Sikkim.", cabs: { "Elite SUV (Innova)": 8000, "Executive Sedan": 5000 } },
+      "Guru Dongmar Lake": { desc: "High-altitude odyssey to the frozen holy lake.", cabs: { "Elite SUV (Innova)": 28000, "Executive Sedan": 20000 } },
+      "Yumthang Valley": { desc: "The Stunning Valley of Flowers in North Sikkim.", cabs: { "Elite SUV (Innova)": 18000, "Executive Sedan": 12000 } },
+      "Nathang Valley": { desc: "The highest village in East Sikkim on the Silk Route.", cabs: { "Elite SUV (Innova)": 16000, "Executive Sedan": 10000 } },
+      "Barsey Rhododendron": { desc: "A scarlet paradise in West Sikkim.", cabs: { "Elite SUV (Innova)": 12000, "Executive Sedan": 7000 } },
+      "Ravangla Buddha Park": { desc: "South Sikkim's iconic spiritual landmark.", cabs: { "Elite SUV (Innova)": 9000, "Executive Sedan": 6000 } },
+      "Solophok Chardham": { desc: "The spiritual heart of Namchi, featuring Char Dham replicas.", cabs: { "Elite SUV (Innova)": 7500, "Executive Sedan": 4500 } },
+      "Samdruptse Hill": { desc: "The 'Wish Fulfilling Hill' with the golden Guru statue.", cabs: { "Elite SUV (Innova)": 7500, "Executive Sedan": 4500 } },
+      "Tarey Bhir": { desc: "Panoramic cliff-edge adventure on the edge of the world.", cabs: { "Elite SUV (Innova)": 7500, "Executive Sedan": 4500 } },
+      "Goechala Pass Trek": { desc: "Premium 11-day trek to the base of Kanchenjunga.", cabs: { "Guided Expedition Pack": 45000, "Luxury Camp Base": 35000 } },
+      "Zuluk": { desc: "Traverse the historic Silk Route hairpin bends.", cabs: { "Elite SUV (Innova)": 15000, "Executive Sedan": 9000 } },
+      "Nathu La": { desc: "Witness the historic Indo-China border pass.", cabs: { "Elite SUV (Innova)": 15000, "Executive Sedan": 9000 } },
+      "Gangtok": { desc: "Curated capital city experience and sights.", cabs: { "Elite SUV (Innova)": 10000, "Executive Sedan": 8000 } },
+      "Pelling": { desc: "Kanchenjunga views and the iconic Sky Walk.", cabs: { "Elite SUV (Innova)": 9000, "Executive Sedan": 6000 } }
     };
 
     const form = document.getElementById("bookingForm");
@@ -291,22 +156,26 @@ body::before {
     const cabSelect = document.getElementById("cab");
     const priceDisplay = document.getElementById("priceDisplay");
     const bookingDateInput = document.getElementById("bookingDate");
-    const today = new Date().toISOString().split("T")[0];
-    bookingDateInput.min = today;
+
+    bookingDateInput.min = new Date().toISOString().split("T")[0];
 
     destinationSelect.addEventListener("change", () => {
       const dest = destinations[destinationSelect.value];
-      cabSelect.innerHTML = '<option value="">-- Select Cab --</option>';
+      cabSelect.innerHTML = '<option value="">-- Choose Cab --</option>';
       if (dest) {
+        cabSelect.disabled = false;
         Object.entries(dest.cabs).forEach(([cab, price]) => {
           const opt = document.createElement("option");
           opt.value = cab;
-          opt.textContent = `${cab} - ₹${price.toLocaleString()}`;
+          opt.textContent = `${cab} - Est. ₹${price.toLocaleString()}`;
           cabSelect.appendChild(opt);
         });
         priceDisplay.textContent = dest.desc;
+        priceDisplay.style.color = "var(--text-muted)";
       } else {
-        priceDisplay.textContent = "Please select a destination & cab";
+        cabSelect.disabled = true;
+        cabSelect.innerHTML = '<option value="">Awaiting Destination...</option>';
+        priceDisplay.textContent = "Personalize your journey for pricing";
       }
     });
 
@@ -314,13 +183,19 @@ body::before {
       const dest = destinations[destinationSelect.value];
       const cab = cabSelect.value;
       if (dest && cab) {
-        priceDisplay.textContent = `💰 Price: ₹${dest.cabs[cab].toLocaleString()}`;
+        priceDisplay.innerHTML = `<span style="color: var(--accent);">✦ ESTIMATED VALUATION: ₹${dest.cabs[cab].toLocaleString()}</span>`;
       }
     });
 
     form.addEventListener("submit", async e => {
       e.preventDefault();
-      const data = {
+      const notification = document.getElementById("notification");
+      const btn = e.target.querySelector("button");
+
+      btn.disabled = true;
+      btn.textContent = "CONFIRMING...";
+
+      const formData = {
         name: form.name.value.trim(),
         email: form.email.value.trim(),
         phone: form.phone.value.trim(),
@@ -331,40 +206,33 @@ body::before {
         message: form.message.value.trim()
       };
 
-      const notification = document.getElementById("notification");
-      notification.textContent = "⏳ Sending your booking request...";
-      notification.style.color = "#555";
-
       try {
         const res = await fetch("/send-booking", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
+          body: JSON.stringify(formData)
         });
         const result = await res.json();
 
+        notification.style.display = "block";
+        notification.style.background = result.success ? "rgba(45, 212, 191, 0.15)" : "rgba(239, 68, 68, 0.15)";
+        notification.style.color = result.success ? "#2dd4bf" : "#ef4444";
+        notification.textContent = result.message || result.error;
+
         if (result.success) {
-          notification.textContent = "✅ Booking request sent successfully!";
-          notification.style.color = "green";
           form.reset();
-          priceDisplay.textContent = "Please select a destination & cab";
-          cabSelect.innerHTML = '<option value="">-- Select Cab --</option>';
-          bookingDateInput.min = today;
-           // Redirect after a short delay (e.g., 2 seconds)
-  setTimeout(() => {
-    window.location.href = "thankyou.html";
-  }, 2000);
-          
-        } else {
-          notification.textContent = "❌ " + (result.error || "Failed to send booking.");
-          notification.style.color = "red";
+          setTimeout(() => window.location.href = "thankyou.html", 1500);
         }
       } catch (err) {
-        console.error("Booking submission error:", err);
-        notification.textContent = "❌ Error sending booking.";
-        notification.style.color = "red";
+        notification.style.display = "block";
+        notification.style.color = "#ef4444";
+        notification.textContent = "Protocol error. Please retry.";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "CONFIRM EXPEDITION";
       }
     });
   </script>
 </body>
+
 </html>

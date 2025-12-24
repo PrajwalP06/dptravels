@@ -1,294 +1,703 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Destination Paradise - DP Travels</title>
 
-    <link rel="stylesheet" href="Style.css" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23C5A47E'>✈️</text></svg>"
-    />
-    <link
-  rel="icon"
-  type="image/svg+xml"
-  href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='90%' font-size='80' font-family='Arial, sans-serif' text-anchor='middle' fill='%23C5A47E' font-weight='bold'>DP</text></svg>"
-/>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DP Travels | Beyond Extraordinary Sikkim Journeys</title>
 
+  <link rel="stylesheet" href="Style.css" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='90%' font-size='80' font-family='Arial, sans-serif' text-anchor='middle' fill='%232dd4bf' font-weight='bold'>DP</text></svg>" />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-      crossorigin="anonymous"
-    ></script>
-  </head>
+  <!-- Bootstrap Grid for layout utilities -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-grid.min.css" rel="stylesheet" />
+</head>
 
-  <body>
-    <!-- Navbar -->
-    <nav>
-      <div class="container navbar">
-        <div class="logo">
-          <img
-            src="Images/DP Travels.jpg"
-            alt="DP Travels Logo"
-            style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px"
-          />
-          DP Travels
-        </div>
-        <ul class="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#packages">Packages</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+<body>
+  <!-- Navbar -->
+  <nav id="mainNav">
+    <div class="container navbar">
+      <a href="index.html" class="logo">
+        <img src="Images/DP Travels.jpg" alt="DP Travels Logo" />
+        DP TRAVELS
+      </a>
+      <ul class="nav-links">
+        <li><a href="#packages">DESTINATIONS</a></li>
+        <li><a href="#gallery">GALLERY</a></li>
+        <li><a href="#about">EXPERIENCES</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+      <div class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <!-- Hero Section -->
-    <section class="hero text-center">
-      <div class="hero-content">
-        <h1>Discover Your Dream Vacation</h1>
-        <p>
-          Explore the world's most beautiful destinations with our expertly
-          crafted tour packages tailored to your preferences.
-        </p>
-        <a href="#packages" class="btn btn-primary">Explore Tours</a>
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-overlay" id="mobileOverlay">
+    <a href="#packages" onclick="toggleMenu()">DESTINATIONS</a>
+    <a href="#gallery" onclick="toggleMenu()">GALLERY</a>
+    <a href="#about" onclick="toggleMenu()">EXPERIENCES</a>
+    <a href="#contact" onclick="toggleMenu()">CONTACT</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" style="--hero-url: url('Images/hero_v2.png')">
+    <div class="container">
+      <div class="hero-content reveal">
+        <p>ULTIMATE HIMALAYAN ODYSSEY</p>
+        <h1>Where Earth <br>Meets Heaven</h1>
+        <p>Bespoke luxury travels through the mystical landscapes of Sikkim. Curated by experts, experienced by you.</p>
+        <div class="d-flex gap-3">
+          <a href="#packages" class="btn btn-primary">EXPLORE TOURS</a>
+          <a href="booking.html" class="btn btn-outline">PLAN YOUR TRIP</a>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Tour Packages -->
-    <section id="packages" class="container">
-      <h2 class="section-title">Popular Tour Packages</h2>
-      <div class="packages-container">
-        <!-- Repeatable package cards -->
-        <div class="package-card">
-          <img src="Images/Tsomgo lake.jpg" alt="Tsomgo Lake" class="package-img" />
-          <div class="package-content">
-            <h3>Tsomgo Lake</h3>
-            <p>1 day exploring the spiritual lake, visiting all major attractions.</p>
-            <a href="booking.html" class="btn btn-primary">Book Now</a>
+  <!-- Why Choose Us -->
+  <section id="about" class="section-padding">
+    <div class="container">
+      <div class="section-title reveal">
+        <p>The DP Difference</p>
+        <h2>Crafting Unforgettable Memories</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4 reveal">
+          <div class="package-card p-5 h-100 text-center">
+            <div style="font-size: 3rem; margin-bottom: 1.5rem;">🏔️</div>
+            <h3>Exclusive Access</h3>
+            <p class="text-muted">Private entries to sacred monasteries and hidden glacial lakes others miss.</p>
           </div>
         </div>
-
-        <div class="package-card">
-          <img src="Images/gurudongmar lake2.jpeg" alt="Gurudongmar Lake" class="package-img" />
-          <div class="package-content">
-            <h3>Gurudongmar Lake</h3>
-            <p>4 days 3 nights exploration. Enjoy the scenic beauty of the place.</p>
-            <a href="booking.html" class="btn btn-primary">Book Now</a>
+        <div class="col-md-4 reveal">
+          <div class="package-card p-5 h-100 text-center">
+            <div style="font-size: 3rem; margin-bottom: 1.5rem;">✨</div>
+            <h3>Bespoke Luxury</h3>
+            <p class="text-muted">Tailored itineraries that match your pace, preference, and lifestyle perfectly.</p>
           </div>
         </div>
-
-        <div class="package-card">
-          <img src="Images/Namchi.jpg" alt="Namchi" class="package-img" />
-          <div class="package-content">
-            <h3>Namchi Package</h3>
-            <p>1 day discovering ancient traditions and modern wonders.</p>
-            <a href="booking.html" class="btn btn-primary">Book Now</a>
-          </div>
-        </div>
-
-        <div class="package-card">
-          <img src="Images/Zuluk3.jpg" alt="Zuluk Silk Route" class="package-img" />
-          <div class="package-content">
-            <h3>Zuluk Silk Route</h3>
-            <p>1 day tour to the Silk Route and its beautiful landscapes.</p>
-            <a href="booking.html" class="btn btn-primary">Book Now</a>
-          </div>
-        </div>
-
-        <div class="package-card">
-          <img src="Images/Nathu_La_-_Indo_China_Border.jpg" alt="Nathula" class="package-img" />
-          <div class="package-content">
-            <h3>Nathula</h3>
-            <p>1 day tour to the Indo-China border, mostly covered with snow.</p>
-            <a href="booking.html" class="btn btn-primary">Book Now</a>
-          </div>
-        </div>
-
-        <div class="package-card">
-          <img src="Images/pelling screenshot.jpg" alt="Sky Walk, Pelling" class="package-img" />
-          <div class="package-content">
-            <h3>Sky Walk, Pelling</h3>
-            <p>2 days visiting all major attractions and monasteries.</p>
-            <a href="booking.html" class="btn btn-primary">Book Now</a>
-          </div>
-        </div>
-
-        <div class="package-card">
-          <img src="Images/MG Marg.jpg" alt="Gangtok Sightseeing" class="package-img" />
-          <div class="package-content">
-            <h3>Gangtok Sightseeing</h3>
-            <p>1 day in the city with stunning views and relaxation.</p>
-            <a href="booking.html" class="btn btn-primary">Book Now</a>
+        <div class="col-md-4 reveal">
+          <div class="package-card p-5 h-100 text-center">
+            <div style="font-size: 3rem; margin-bottom: 1.5rem;">🚕</div>
+            <h3>Premium Comfort</h3>
+            <p class="text-muted">Luxury cabs with expert drivers committed to your safety and absolute comfort.</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="container gallery">
-      <h2 class="section-title">Travel Gallery</h2>
-      <div class="gallery-grid">
-        <img src="Images/gangtok.webp" alt="Gangtok" />
-        <img src="Images/Gurudongmar-Lake 3.jpg" alt="Gurudongmar Lake" />
-        <img src="Images/pelling screenshot.jpg" alt="Pelling" />
-        <img src="Images/Lachen Monastry.jpg" alt="Lachen Monastery" />
-        <img src="Images/Namchi.jpg" alt="Namchi" />
-        <img src="Images/Tarey-Bhir.jpg" alt="Tarey Bhir" />
-        <img src="Images/Yumthang.jpg" alt="Yumthang" />
-        <img src="Images/rabdentse-ruins.jpg" alt="Rabdentse Ruins" />
+  <!-- Popular Packages Expanded -->
+  <section id="packages" class="section-padding" style="background: rgba(255,255,255,0.02);">
+    <div class="container">
+      <div class="section-title reveal">
+        <p>Curated Experiences</p>
+        <h2>Premium Regional Expeditions</h2>
       </div>
-    </section>
+      <div class="packages-grid">
+        <!-- North: Yumthang -->
+        <div class="package-card reveal">
+          <div class="package-img-wrapper">
+            <span class="package-badge">North Sikkim</span>
+            <img src="Images/Yumthang.jpg" alt="Yumthang Valley" />
+          </div>
+          <div class="package-content">
+            <h3>Yumthang Valley</h3>
+            <p>The "Valley of Flowers". A sub-alpine paradise with hot springs and meadows of primulas.</p>
+          </div>
+          <div class="package-footer">
+            <span class="package-price">₹12,000+</span>
+            <a href="booking.html" class="btn btn-primary btn-sm" style="padding: 0.8rem 1.5rem;">BOOK</a>
+          </div>
+        </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <h2 class="section-title">Contact Us</h2>
-          <form id="queryForm">
-            <input type="text" class="form-control" id="name" placeholder="Full Name" required /><br />
-            <input type="email" class="form-control" id="email" placeholder="Email" required /><br />
-            <input type="number" class="form-control" id="phone" placeholder="Contact No" required /><br />
-            <textarea class="form-control" id="message" placeholder="Your Message" required></textarea><br />
-            <div class="text-center">
-              <button type="submit" class="btn btn-success">Submit</button>
+        <!-- East: Nathang Valley -->
+        <div class="package-card reveal">
+          <div class="package-img-wrapper">
+            <span class="package-badge">East Sikkim</span>
+            <img src="Images/Zuluk3.jpg" alt="Nathang Valley" />
+          </div>
+          <div class="package-content">
+            <h3>Nathang Valley</h3>
+            <p>Part of the Ancient Silk Route. The highest village in East Sikkim at 13,500 ft.</p>
+          </div>
+          <div class="package-footer">
+            <span class="package-price">₹10,000+</span>
+            <a href="booking.html" class="btn btn-primary btn-sm" style="padding: 0.8rem 1.5rem;">BOOK</a>
+          </div>
+        </div>
+
+        <!-- West: Barsey -->
+        <div class="package-card reveal">
+          <div class="package-img-wrapper">
+            <span class="package-badge">West Sikkim</span>
+            <img src="Images/pelling screenshot.jpg" alt="Barsey Sanctuary" />
+          </div>
+          <div class="package-content">
+            <h3>Barsey Rhododendron</h3>
+            <p>A scarlet paradise. Perfect for nature walks amidst blooming rhododendron forests.</p>
+          </div>
+          <div class="package-footer">
+            <span class="package-price">₹7,000+</span>
+            <a href="booking.html" class="btn btn-primary btn-sm" style="padding: 0.8rem 1.5rem;">BOOK</a>
+          </div>
+        </div>
+
+        <!-- South: Ravangla -->
+        <div class="package-card reveal">
+          <div class="package-img-wrapper">
+            <span class="package-badge">South Sikkim</span>
+            <img src="Images/Ravngla.jpg" alt="Ravangla Buddha Park" />
+          </div>
+          <div class="package-content">
+            <h3>Ravangla Buddha Park</h3>
+            <p>Spirituality met with grandeur. Witness the 130ft Tathagata Tsal statue.</p>
+          </div>
+          <div class="package-footer">
+            <span class="package-price">₹6,000+</span>
+            <a href="booking.html" class="btn btn-primary btn-sm" style="padding: 0.8rem 1.5rem;">BOOK</a>
+          </div>
+        </div>
+
+        <!-- Namchi: Solophok -->
+        <div class="package-card reveal">
+          <div class="package-img-wrapper">
+            <span class="package-badge">Namchi Sacred</span>
+            <img src="Images/Solophok-Namchi.jpg" alt="Solophok Chardham" />
+          </div>
+          <div class="package-content">
+            <h3>Solophok Chardham</h3>
+            <p>A spiritual masterpiece. Explore the 108ft Shiva statue and replicas of India's Char Dhams.</p>
+          </div>
+          <div class="package-footer">
+            <span class="package-price">₹4,500+</span>
+            <a href="booking.html" class="btn btn-primary btn-sm" style="padding: 0.8rem 1.5rem;">BOOK</a>
+          </div>
+        </div>
+
+        <!-- Namchi: Samdruptse -->
+        <div class="package-card reveal">
+          <div class="package-img-wrapper">
+            <span class="package-badge">Namchi Sacred</span>
+            <img src="Images/samdruptse-hill1.jpg" alt="Samdruptse Hill" />
+          </div>
+          <div class="package-content">
+            <h3>Samdruptse Hill</h3>
+            <p>The 'Wish Fulfilling Hill'. Home to the world's tallest statue of Guru Padmasambhava.</p>
+          </div>
+          <div class="package-footer">
+            <span class="package-price">₹4,500+</span>
+            <a href="booking.html" class="btn btn-primary btn-sm" style="padding: 0.8rem 1.5rem;">BOOK</a>
+          </div>
+        </div>
+
+        <!-- Namchi: Tarey Bhir -->
+        <div class="package-card reveal">
+          <div class="package-img-wrapper">
+            <span class="package-badge">Namchi Adventure</span>
+            <img src="Images/Tarey-Bhir.jpg" alt="Tarey Bhir" />
+          </div>
+          <div class="package-content">
+            <h3>Tarey Bhir</h3>
+            <p>A dramatic cliff-edge walk. 10,000ft drops and panoramic views of the river valleys.</p>
+          </div>
+          <div class="package-footer">
+            <span class="package-price">₹4,500+</span>
+            <a href="booking.html" class="btn btn-primary btn-sm" style="padding: 0.8rem 1.5rem;">BOOK</a>
+          </div>
+        </div>
+
+        <!-- Original: Gurudongmar -->
+        <div class="package-card reveal">
+          <div class="package-img-wrapper">
+            <span class="package-badge">Elite Adventure</span>
+            <img src="Images/gurudongmar lake2.jpeg" alt="Gurudongmar Lake" />
+          </div>
+          <div class="package-content">
+            <h3>Guru Dongmar Odyssey</h3>
+            <p>The ultimate high-altitude experience at 17,800 ft. A masterclass in raw nature.</p>
+          </div>
+          <div class="package-footer">
+            <span class="package-price">₹20,000+</span>
+            <a href="booking.html" class="btn btn-primary btn-sm" style="padding: 0.8rem 1.5rem;">BOOK</a>
+          </div>
+        </div>
+
+        <!-- Original: Tsomgo -->
+        <div class="package-card reveal">
+          <div class="package-img-wrapper">
+            <span class="package-badge">Most Loved</span>
+            <img src="Images/Tsomgo lake.jpg" alt="Tsomgo Lake" />
+          </div>
+          <div class="package-content">
+            <h3>Sacred Tsomgo Lake</h3>
+            <p>A spiritual journey to the glacial mirror of the gods. Private guided tour included.</p>
+          </div>
+          <div class="package-footer">
+            <span class="package-price">₹8,000+</span>
+            <a href="booking.html" class="btn btn-primary btn-sm" style="padding: 0.8rem 1.5rem;">BOOK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trekking Odyssey Section -->
+  <!-- Hidden Gems Sub-grid -->
+  <div id="hidden-gems" class="container reveal">
+    <div class="section-title text-start mb-4">
+      <p>Off the Map</p>
+      <h3 class="h2" style="color: var(--accent);">Hidden Gems</h3>
+    </div>
+    <div class="packages-grid">
+      <div class="package-card reveal"
+        style="background: rgba(45, 212, 191, 0.05); border: 1px solid var(--accent); padding: 2.5rem; border-radius: 30px;">
+        <div class="package-content p-0">
+          <span class="badge mb-3"
+            style="background: var(--accent); color: #000; border-radius: 20px; padding: 6px 16px; font-size: 0.75rem; font-weight: 800; display: inline-block; letter-spacing: 1px;">OFF-GRID</span>
+          <h3 style="font-size: 1.6rem; margin-bottom: 1rem;">Dzongu Lepcha Reserve</h3>
+          <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2.5rem;">Access the
+            pristine ancestral lands of the Lepcha tribe. A restricted sanctuary of silence and soul.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="fw-bold" style="color: var(--accent); font-size: 1.2rem;">₹15,000+</span>
+            <a href="booking.html" class="btn btn-primary btn-sm"
+              style="padding: 0.8rem 1.5rem; border-radius: 12px;">DISCOVER</a>
+          </div>
+        </div>
+      </div>
+      <div class="package-card reveal"
+        style="background: rgba(45, 212, 191, 0.05); border: 1px solid var(--accent); padding: 2.5rem; border-radius: 30px;">
+        <div class="package-content p-0">
+          <span class="badge mb-3"
+            style="background: var(--accent); color: #000; border-radius: 20px; padding: 6px 16px; font-size: 0.75rem; font-weight: 800; display: inline-block; letter-spacing: 1px;">SERENE</span>
+          <h3 style="font-size: 1.6rem; margin-bottom: 1rem;">Bermiok Kaluk</h3>
+          <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2.5rem;">The closest you
+            can get to Kanchenjunga's mirror. A panoramic retreat for the contemplative mind.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="fw-bold" style="color: var(--accent); font-size: 1.2rem;">₹5,000+</span>
+            <a href="booking.html" class="btn btn-primary btn-sm"
+              style="padding: 0.8rem 1.5rem; border-radius: 12px;">DISCOVER</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="trekking" class="section-padding">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-5 reveal">
+          <div class="section-title text-start">
+            <p>The High Path</p>
+            <h2>Trekking Odyssey</h2>
+            <p class="mt-4" style="font-size: 1.1rem; line-height: 1.8;">For those who seek to conquer peaks and find
+              themselves in the silence of the mountains. Our trekking planners curate routes that test your spirit and
+              reward your soul.</p>
+          </div>
+
+          <!-- Pro Hints -->
+          <div class="mt-5">
+            <div class="d-flex mb-4">
+              <div style="font-size: 2rem; margin-right: 1.5rem; filter: drop-shadow(0 0 10px var(--accent));">🏔️</div>
+              <div>
+                <h4 class="mb-1">Acclimatize Early</h4>
+                <p class="text-muted small">Spend at least 2 days in Gangtok (5,500ft) before pushing to 12,000ft+
+                  trails.</p>
+              </div>
             </div>
+            <div class="d-flex mb-4">
+              <div style="font-size: 2rem; margin-right: 1.5rem; filter: drop-shadow(0 0 10px var(--accent));">🧥</div>
+              <div>
+                <h4 class="mb-1">Layering is Law</h4>
+                <p class="text-muted small">Temperatures drop drastically at night. Pack thermal base layers and a heavy
+                  windcheater.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4">
+              <div style="font-size: 2rem; margin-right: 1.5rem; filter: drop-shadow(0 0 10px var(--accent));">📜</div>
+              <div>
+                <h4 class="mb-1">Permit Readiness</h4>
+                <p class="text-muted small">Some trails near the border require RAP/PAP permits. Keep 4 passport photos
+                  ready!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 reveal">
+          <div class="package-card p-0 overflow-hidden" style="border: none; border-radius: 30px; position: relative;">
+            <img src="Images/lake view.jpg" alt="Trekking in Sikkim"
+              style="width: 100%; height: 500px; object-fit: cover;" />
             <div
-              id="notification"
-              class="mt-3 text-center fw-semibold"
-              style="display: none; border: 2px solid #ccc; border-radius: 5px; padding: 10px; background-color: #fff;"
-            ></div>
+              style="position: absolute; bottom: 0; left: 0; right: 0; padding: 3rem; background: linear-gradient(transparent, rgba(0,0,0,0.9));">
+              <h3 style="color: white; font-size: 2rem;">Goechala Pass Trek</h3>
+              <p style="color: rgba(255,255,255,0.7);">The grandest walk in the Himalayas with up-close views of
+                Kanchenjunga.</p>
+              <a href="booking.html" class="btn btn-primary mt-3">CUSTOMIZE TREK</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="section-padding">
+    <div class="container">
+      <div class="section-title reveal">
+        <p>Visual Journey</p>
+        <h2>Sikkim Through The Lens</h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal"><img src="Images/gangtok.webp" alt="Gangtok" /></div>
+        <div class="gallery-item reveal"><img src="Images/Gurudongmar-Lake 3.jpg" alt="Gurudongmar Lake" /></div>
+        <div class="gallery-item reveal"><img src="Images/pelling screenshot.jpg" alt="Pelling" /></div>
+        <div class="gallery-item reveal"><img src="Images/Lachen Monastry.jpg" alt="Lachen Monastery" /></div>
+        <div class="gallery-item reveal"><img src="Images/Namchi.jpg" alt="Namchi" /></div>
+        <div class="gallery-item reveal"><img src="Images/Tarey-Bhir.jpg" alt="Tarey Bhir" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Voices of the Mountains (Testimonials) -->
+  <section id="testimonials" class="section-padding" style="background: rgba(255,255,255,0.01);">
+    <div class="container">
+      <div class="section-title reveal">
+        <p>Elite Travelers</p>
+        <h2>Voices of the Mountains</h2>
+      </div>
+      <div id="testimonialGrid" class="testimonial-grid">
+        <!-- Dynmically populated from reviews.json -->
+      </div>
+      <div class="text-center mt-5 reveal">
+        <a href="https://search.google.com/local/reviews?placeid=ChIJXeuMYN-n5jkRRiGf8AhrvpM" target="_blank"
+          class="btn btn-outline" style="border-radius: 30px;">
+          VIEW ALL GOOGLE REVIEWS ✦
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Himalayan Chronicles (Stories) -->
+  <section id="stories" class="section-padding">
+    <div class="container">
+      <div class="section-title reveal">
+        <p>Immersive Narratives</p>
+        <h2>Himalayan Chronicles</h2>
+      </div>
+      <div class="stories-grid">
+        <div class="story-item large reveal">
+          <img src="Images/Zuluk3.jpg" alt="Zuluk Story" class="story-img" />
+          <div class="story-overlay">
+            <div class="story-content">
+              <h3>The 32 Hairpin Bends</h3>
+              <p>A journey through the architectural marvel of the Old Silk Route, where history loops through the
+                clouds.</p>
+              <button class="btn btn-primary btn-sm mt-3" onclick="openChronicleModal('hairpin')">READ
+                CHRONICLE</button>
+            </div>
+          </div>
+        </div>
+        <div class="story-item small reveal">
+          <img src="Images/Lachen Monastry.jpg" alt="Monastery Story" class="story-img" />
+          <div class="story-overlay">
+            <div class="story-content">
+              <h3>Silent Whispers of Lachen</h3>
+              <p>Uncovering the ancient spiritual echoes in the hidden monasteries of the North.</p>
+              <button class="btn btn-primary btn-sm mt-3" onclick="openChronicleModal('lachen')">READ CHRONICLE</button>
+            </div>
+          </div>
+        </div>
+        <div class="story-item small reveal">
+          <img src="Images/Tarey-Bhir.jpg" alt="South Story" class="story-img" />
+          <div class="story-overlay">
+            <div class="story-content">
+              <h3>The Edge of the World</h3>
+              <p>Standing on the Tarey Bhir cliffs, where the horizon meets the deepest valleys of the South.</p>
+              <button class="btn btn-primary btn-sm mt-3" onclick="openChronicleModal('tarey')">READ CHRONICLE</button>
+            </div>
+          </div>
+        </div>
+        <div class="story-item large reveal">
+          <img src="Images/gurudongmar lake2.jpeg" alt="Holy Lake Story" class="story-img" />
+          <div class="story-overlay">
+            <div class="story-content">
+              <h3>Sacred Ice & Holy Waters</h3>
+              <p>The untold legend of Guru Dongmar, the lake that never fully freezes, even at 17,800 ft.</p>
+              <button class="btn btn-primary btn-sm mt-3" onclick="openChronicleModal('gurudongmar')">READ
+                CHRONICLE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chronicle Modal -->
+  <div id="chronicleModal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <div class="modal-header">
+        <span class="modal-badge">HIMALAYAN CHRONICLES</span>
+        <h2 id="modalTitle">Chronicle Title</h2>
+      </div>
+      <div class="modal-body">
+        <div class="story-section">
+          <h3>The Legend</h3>
+          <p id="modalStory">Short story goes here...</p>
+        </div>
+        <div class="trivia-section">
+          <h3><span style="color: var(--accent);">✦</span> Mountain Trivia</h3>
+          <p id="modalTrivia">Trivia goes here...</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="booking.html" class="btn btn-primary w-100">PLAN THIS JOURNEY</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section-padding">
+    <div class="container">
+      <div class="contact-wrapper reveal">
+        <div class="contact-form">
+          <h2 style="font-size: 3rem; margin-bottom: 2rem;">Let's Talk Travel.</h2>
+          <form id="queryForm">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="name" placeholder="E.g. Alexander Walker" required />
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="email@company.com" required />
+              </div>
+              <div class="col-md-6 form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="number" class="form-control" id="phone" placeholder="+91 00000 00000" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Your Message</label>
+              <textarea class="form-control" id="message" rows="5" placeholder="Tell us about your dream trip..."
+                required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-2">REQUEST CALL BACK</button>
+            <div id="notification" class="mt-4 text-center fw-bold p-3" style="display: none; border-radius: 8px;">
+            </div>
           </form>
         </div>
-
-        <div class="col-md-6">
-          <h2 class="section-title">Map</h2>
+        <div class="contact-map">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56706.18135408097!2d88.57927513322589!3d27.340205902048996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e6a56a5805eafb%3A0x73d6132c501c8f20!2sGangtok%2C%20Sikkim!5e0!3m2!1sen!2sin!4v1751534551294!5m2!1sen!2sin"
-            width="100%"
-            height="300"
-            style="border: 0"
-            allowfullscreen=""
-            loading="lazy"
-          ></iframe>
+            allowfullscreen="" loading="lazy"></iframe>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-column">
-            <h3>DP Travels</h3>
-            <p>Making your travel dreams come true since 2025. We create unforgettable experiences across Sikkim.</p>
-          </div>
-          <div class="footer-column">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#packages">Tour Packages</a></li>
-              <li><a href="#gallery">Gallery</a></li>
-              <li><a href="#">Special Offers</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h3>Support</h3>
-            <ul>
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Terms & Conditions</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Customer Support</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h3>Contact</h3>
-            <ul>
-              <li><a href="mailto:destinationparadise025@gmail.com">destinationparadise025@gmail.com</a></li>
-              <li><a href="tel:+918348945765">+91 8348945765</a></li>
-              <li>New Market, Pakyong</li>
-            </ul>
-          </div>
-        </div>
-        <div class="copyright">
-          <p>&copy; 2025 DP Travels (Destination Paradise). All rights reserved.</p>
-        </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <a href="index.html" class="logo" style="font-size: 1.2rem;">DP TRAVELS</a>
+
+      <ul class="footer-minimal-links">
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+      </ul>
+
+      <div class="copyright">
+        <p>&copy; 2025 DP TRAVELS. BEYOND EXTRAORDINARY.</p>
       </div>
-    </footer>
-<!-- Contact Form Script -->
-<script>
-  document.getElementById("queryForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+    </div>
+  </footer>
 
-    // ✅ Declare all elements first
-    const nameEl = document.getElementById("name");
-    const emailEl = document.getElementById("email");
-    const phoneEl = document.getElementById("phone");
-    const messageEl = document.getElementById("message");
-    const notification = document.getElementById("notification");
-    const submitButton = e.target.querySelector("button[type='submit']");
-
-    // ✅ Then use their values
-    const name = nameEl.value.trim();
-    const email = emailEl.value.trim();
-    const phone = phoneEl.value.trim();
-    const message = messageEl.value.trim();
-
-    submitButton.disabled = true;
-    submitButton.innerHTML =
-      '<div class="spinner-border spinner-border-sm me-2" role="status"></div>Sending...';
-    notification.style.display = "none";
-
-    try {
-      const baseURL =
-        window.location.hostname === "localhost"
-          ? "http://localhost:3000"
-          : "https://www.dptravels.in";
-
-      const response = await fetch(`${baseURL}/send-query`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, message }),
+  <script>
+    // Reveal on Scroll Logic
+    const observerOptions = { threshold: 0.15 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
       });
+    }, observerOptions);
 
-      const text = await response.text();
-      console.log("📜 Raw response:", text);
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-      let data;
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('mainNav');
+      window.scrollY > 80 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+    });
+
+    // Contact Form Logic
+    document.getElementById("queryForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const notification = document.getElementById("notification");
+      const btn = e.target.querySelector("button");
+
+      btn.disabled = true;
+      btn.textContent = "PROCESSING...";
+
+      const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        message: document.getElementById("message").value
+      };
+
       try {
-        data = JSON.parse(text);
-      } catch {
-        data = { success: false, error: "Invalid JSON response from server." };
+        const res = await fetch("/send-query", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+
+        notification.style.display = "block";
+        notification.style.background = data.success ? "rgba(45, 212, 191, 0.15)" : "rgba(239, 68, 68, 0.15)";
+        notification.style.color = data.success ? "#2dd4bf" : "#ef4444";
+        notification.textContent = data.message || data.error;
+
+        if (data.success) e.target.reset();
+      } catch (err) {
+        notification.style.display = "block";
+        notification.style.color = "#ef4444";
+        notification.textContent = "Connection error. Please try again.";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "REQUEST CALL BACK";
       }
+    });
 
-      notification.style.display = "block";
-      notification.style.color = data.success ? "green" : "red";
-      notification.style.borderColor = data.success ? "green" : "red";
-      notification.textContent = data.message || data.error;
+    // Mobile Menu Toggle Logic
+    const navToggle = document.getElementById('navToggle');
+    const mobileOverlay = document.getElementById('mobileOverlay');
 
-      if (data.success) e.target.reset();
-    } catch (err) {
-      console.error("❌ Form submission error:", err);
-      notification.style.display = "block";
-      notification.style.color = "red";
-      notification.style.borderColor = "red";
-      notification.textContent = "Failed to send message. Please try again later.";
-    } finally {
-      submitButton.disabled = false;
-      submitButton.textContent = "Submit";
+    function toggleMenu() {
+      if (!mobileOverlay || !navToggle) return;
+
+      const isActive = mobileOverlay.classList.toggle('active');
+      document.body.style.overflow = isActive ? 'hidden' : 'auto';
+
+      // Animate hamburger (standard CSS transition handled by .active class on spans)
+      const spans = navToggle.querySelectorAll('span');
+      if (isActive) {
+        spans[0].style.transform = 'translateY(8.5px) rotate(45deg)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'translateY(-8.5px) rotate(-45deg)';
+      } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      }
     }
-  });
-</script>
 
-  </body>
+    if (navToggle) {
+      navToggle.addEventListener('click', toggleMenu);
+    }
+
+    // Chronicle Modal Logic
+    const chronicleData = {
+      hairpin: {
+        title: "The 32 Hairpin Bends",
+        story: "The Old Silk Route's architectural marvel, the 32 hairpin bends of Zuluk, were painstakingly carved into the steep mountainside to allow travelers and traders to reach the high-altitude passes. Each turn tells a story of the ancient silk merchants who braved these heights with their caravans.",
+        trivia: "It is one of the few places in the world where you can witness the sun rising and setting over the majestic Kanchenjunga range from the same vantage point."
+      },
+      lachen: {
+        title: "Silent Whispers of Lachen",
+        story: "Lachen, meaning 'Big Pass', is the gateway to the sacred North. It is home to the unique 'Dzumsa' – an ancient local self-governance system that has stood the test of time, ensuring the community lives in perfect harmony with the rugged alpine environment.",
+        trivia: "The monastery here houses a sacred statue of Guru Padmasambhava, which locals believe appeared miraculously after a great storm centuries ago."
+      },
+      tarey: {
+        title: "The Edge of the World",
+        story: "Standing atop the Tarey Bhir cliffs in South Sikkim feels like reaching the very precipice of existence. This 10,000-foot long stone ridge was used by ancient lookouts to monitor the movement of people across the deep river valleys below.",
+        trivia: "From this unique cliff-walk, you can see the emerald meeting point of the Teesta and Rangit rivers, with the plains of Bengal shimmering in the far distance."
+      },
+      gurudongmar: {
+        title: "Sacred Ice & Holy Waters",
+        story: "At 17,800 feet, Guru Dongmar Lake is one of the highest water bodies on Earth. Legend says that Guru Padmasambhava, realizing the locals' struggle for water in winter, touched a portion of the frozen lake, which has never fully frozen since then, even in the harshest sub-zero temperatures.",
+        trivia: "The lake's water is considered holy by Buddhists, Hindus, and Sikhs alike, and it is a rare place where raw nature meets profound spirituality."
+      }
+    };
+
+    const modal = document.getElementById('chronicleModal');
+    const closeBtn = document.getElementById('closeModal');
+
+    function openChronicleModal(key) {
+      const data = chronicleData[key];
+      if (!data) return;
+
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalStory').textContent = data.story;
+      document.getElementById('modalTrivia').textContent = data.trivia;
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModalFunc() {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeModalFunc);
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModalFunc();
+      });
+    }
+
+    // Escape key to close modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModalFunc();
+      }
+    });
+
+    // Dynamic Reviews Logic
+    async function loadReviews() {
+      const container = document.getElementById('testimonialGrid');
+      if (!container) return;
+
+      try {
+        const response = await fetch('data/reviews.json');
+        const reviews = await response.json();
+
+        container.innerHTML = reviews.map((review, index) => `
+          <div class="testimonial-card reveal" style="transition-delay: ${index * 100}ms">
+            <div class="testimonial-badge">${review.badge}</div>
+            <p class="testimonial-text">"${review.text}"</p>
+            <div class="testimonial-author">
+              <div class="testimonial-info">
+                <h4>${review.author}</h4>
+                <p>${review.status}</p>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        // Re-observe new elements for reveal animation
+        document.querySelectorAll('#testimonialGrid .reveal').forEach(el => observer.observe(el));
+      } catch (error) {
+        console.error('Error loading reviews:', error);
+        container.innerHTML = '<p class="text-center text-muted">Awaiting latest mountain echoes...</p>';
+      }
+    }
+
+    // Initialize reviews
+    loadReviews();
+  </script>
+</body>
+
 </html>
